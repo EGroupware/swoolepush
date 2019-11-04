@@ -4,7 +4,7 @@
 
 ## Open tasks:
 - [ ] add IP check and/or other authentication to sending messages
-- [ ] check sessionid cookie when client opens a websocket connection
+- [x] check sessionid cookie when client opens a websocket connection
 
 ## Installation instructions
 ```
@@ -42,7 +42,7 @@ location  /egroupware/push {
         }
 ```
 
-## Send a test-message 
+## Send a test-message
 You can get a token from the server output, when a client connects.
 ```
 curl -i -H 'Content-Type: application/json' -X POST 'https://boulder.egroupware.org/egroupware/push?token=<token>' \

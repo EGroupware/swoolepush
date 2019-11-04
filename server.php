@@ -5,7 +5,7 @@
  *
  * Start with:
  *
- * docker run --rm -it -v $(pwd):/var/www -p9501:9501 phpswoole/swoole
+ * docker run --rm -it -v $(pwd):/var/www -v /var/lib/php/sessions:/var/lib/php/sessions -p9501:9501 phpswoole/swoole
  *
  * Send message (you can get a token from the server output, when a client connects):
  *
@@ -29,6 +29,14 @@ if (!class_exists('Swoole\\Websocket\\Server'))
 	die("\n\nPHP extension swoole not loaded!\n");
 }
 
+// this is necessary to use session_decode(), BEFORE there is any output
+ini_set('session.save_path', '/var/lib/php/sessions');
+if (session_status() !== PHP_SESSION_ACTIVE)
+{
+	session_start();
+}
+require __DIR__.'/vendor/autoload.php';
+
 $table = new Swoole\Table(1024);
 $table->column('tokens', Swoole\Table::TYPE_STRING, 3*40+2);
 $table->create();
@@ -36,13 +44,30 @@ $table->create();
 $server = new Swoole\Websocket\Server("0.0.0.0", 9501);
 $server->table = $table;
 
+/**
+ * Callback for successful Websocket handshake
+ *
+ * @todo move session check before handshake
+ */
 $server->on('open', function (Swoole\Websocket\Server $server, Swoole\Http\Request $request)
 {
 	//var_dump($request);
 	$sessionid = $request->cookie['sessionid'];	// Api\Session::EGW_SESSION_NAME
-    echo "server: handshake success with fd{$request->fd} sessionid=$sessionid\n";
+	$session = new EGroupware\SwoolePush\Session($sessionid);//, 'memcached1:11211,memcached2:11211', 'memcached');
+	if (!$session->exists())
+	{
+		echo "server: handshake success with fd{$request->fd}, FAILED with unknown sessionid=$sessionid\n";
+		$server->close($request->fd);
+	}
+	else
+	{
+		echo "server: handshake success with fd{$request->fd} existing sessionid=$sessionid\n";
+	}
 });
 
+/**
+ * Callback for received Websocket message
+ */
 $server->on('message', function (Swoole\Websocket\Server $server, $frame)
 {
     echo "receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}\n";
@@ -60,6 +85,9 @@ $server->on('message', function (Swoole\Websocket\Server $server, $frame)
 	}
 });
 
+/**
+ * Callback for received HTTP request
+ */
 $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Response $response) use($server)
 {
 	$token = $request->get['token'] ?? null;
@@ -113,7 +141,9 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 	}
 });
 
-
+/**
+ * Callback for closed connection
+ */
 $server->on('close', function (Swoole\Websocket\Server $server, $fd)
 {
 	$server->table->del($fd);

@@ -1,0 +1,131 @@
+[
+    {
+        "name": "eaglewu/swoole-ide-helper",
+        "version": "dev-english",
+        "version_normalized": "dev-english",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/wudi/swoole-ide-helper.git",
+            "reference": "49ffb35bc89dbf49ce3f7a5f3ea1e560d7f72bc1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/wudi/swoole-ide-helper/zipball/49ffb35bc89dbf49ce3f7a5f3ea1e560d7f72bc1",
+            "reference": "49ffb35bc89dbf49ce3f7a5f3ea1e560d7f72bc1",
+            "shasum": ""
+        },
+        "time": "2019-01-25T04:12:27+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "eagle",
+                "email": "eaglewudi@gmail.com",
+                "role": "lead"
+            }
+        ],
+        "description": "Swoole IDE Helper, to improve auto-completion",
+        "keywords": [
+            "autocomplete",
+            "codeintel",
+            "helper",
+            "ide",
+            "netbeans",
+            "phpdoc",
+            "phpstorm",
+            "sublime",
+            "swoole"
+        ]
+    },
+    {
+        "name": "easyswoole/memcache",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/easy-swoole/memcache.git",
+            "reference": "cc60058323000fb711d9f1a8dcca623af01f2414"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/easy-swoole/memcache/zipball/cc60058323000fb711d9f1a8dcca623af01f2414",
+            "reference": "cc60058323000fb711d9f1a8dcca623af01f2414",
+            "shasum": ""
+        },
+        "require": {
+            "easyswoole/spl": "^1.1"
+        },
+        "require-dev": {
+            "easyswoole/phpunit": ">=1.0.0",
+            "easyswoole/swoole-ide-helper": "^1.1"
+        },
+        "time": "2019-09-06T13:25:51+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "EasySwoole\\Memcache\\": "src/",
+                "EasySwoole\\Memcache\\Tests\\": "tests/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "description": "Coroutine version of Memcache client"
+    },
+    {
+        "name": "easyswoole/spl",
+        "version": "1.3.1",
+        "version_normalized": "1.3.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/easy-swoole/spl.git",
+            "reference": "efe31178d3f589f3843fadc592caca1fe3b1e4e0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/easy-swoole/spl/zipball/efe31178d3f589f3843fadc592caca1fe3b1e4e0",
+            "reference": "efe31178d3f589f3843fadc592caca1fe3b1e4e0",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "php": ">=7.1.0"
+        },
+        "require-dev": {
+            "easyswoole/phpunit": "^1.0"
+        },
+        "time": "2019-10-30T07:39:36+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "EasySwoole\\Spl\\": "src/",
+                "EasySwoole\\Spl\\Test\\": "test/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "YF",
+                "email": "291323003@qq.com"
+            }
+        ],
+        "description": "php stander lib",
+        "homepage": "https://www.easyswoole.com/",
+        "keywords": [
+            "async",
+            "easyswoole",
+            "framework",
+            "swoole"
+        ]
+    }
+]

@@ -1,0 +1,24 @@
+{
+	"name": "egroupware/swoolepush",
+	"description": "EGroupware push server using Swoole",
+	"type": "egroupware-app",
+	"homepage": "https://www.egroupware.org/",
+	"license": "GPLv2+",
+	"authors": [
+        {
+            "name": "Ralf Becker",
+            "email": "rb@egroupware.org"
+        }
+    ],
+    "require": {
+		"easyswoole/memcache": "^1.0"
+	},
+    "require-dev": {
+		"eaglewu/swoole-ide-helper": "dev-english"
+	},
+    "autoload": {
+        "psr-4": {
+            "EGroupware\\SwoolePush\\": "src/"
+        }
+    }
+}
