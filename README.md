@@ -32,10 +32,11 @@ You need to proxy the /push URL into the container, eg. for Apache
 </Location>
 ```
 
-Send message (you can get a token from the server output, when a client connects):
+## Send a test-message 
+You can get a token from the server output, when a client connects.
 ```
 curl -i -H 'Content-Type: application/json' -X POST 'https://boulder.egroupware.org/egroupware/push?token=<token>' \
   -d '{"type":"message","data":{"message":"Hi ;)","type":"notice"}}'
 ```
 
-Remember you need to restart the Docker container, when you make changes to the server!
+> Remember you need to restart the Docker container, when you make changes to the server!
