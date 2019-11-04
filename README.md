@@ -31,6 +31,16 @@ You need to proxy the /push URL into the container, eg. for Apache
     ProxyPassReverse http://localhost:9501
 </Location>
 ```
+eg. for Nginx
+```
+location  /egroupware/push {
+                proxy_http_version 1.1;
+                proxy_set_header Host $http_host;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+                proxy_pass http://localhost:9501;
+        }
+```
 
 ## Send a test-message 
 You can get a token from the server output, when a client connects.
