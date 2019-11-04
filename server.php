@@ -1,15 +1,24 @@
 #!/usr/bin/env php
 <?php
 /**
+ * Push Server for EGroupware using PHP Swoole extension
+ *
  * Start with:
  *
  * docker run --rm -it -v $(pwd):/var/www -p9501:9501 phpswoole/swoole
  *
- * Send message:
+ * Send message (you can get a token from the server output, when a client connects):
  *
- * curl -i -H 'Content-Type: application/json' -X POST 'https://boulder.egroupware.org/egroupware/push' \
- *	-d '{"type":"message","data":{"message":"Hi ;)","type":"notice"},"token":"66f801ad060c80ae6272b07e13d6538bfc86b636"}'
+ * curl -i -H 'Content-Type: application/json' -X POST 'https://boulder.egroupware.org/egroupware/push?token=<token>' \
+ *	-d '{"type":"message","data":{"message":"Hi ;)","type":"notice"}}'
+ *
+ * @link https://www.egroupware.org
+ * @author Ralf Becker <rb-At-egroupware.org>
+ * @package swoolepush
+ * @copyright (c) 2019 by Ralf Becker <rb-At-egroupware.org>
+ * @license http://opensource.org/licenses/gpl-license.php GPL - GNU General Public License
  */
+
 if (php_sapi_name() !== 'cli')	// security precaution: forbit calling server.php as web-page
 {
 	die('<h1>server.php must NOT be called as web-page --> exiting !!!</h1>');
