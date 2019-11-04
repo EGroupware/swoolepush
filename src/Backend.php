@@ -47,6 +47,8 @@ class Backend implements Api\Json\PushBackend
 	 * @param int $account_id account_id to push message too
 	 * @param string $key
 	 * @param mixed $data
+	 * @return string|false response from push server "N subscribers notified"
+	 *	or false if push server could not be reached or did not return 2xx HTTP status
 	 */
 	public function addGeneric($account_id, $key, $data)
 	{
@@ -62,7 +64,6 @@ class Backend implements Api\Json\PushBackend
 		{
 			$token = Token::User($account_id);
 		}
-		// we need to (re-)open the connection, if not already open
 		$header = [];
 		if (!($sock = self::http_open($this->url.'?token='.urlencode($token), 'POST', json_encode([
 				'type' => $key,
@@ -71,9 +72,8 @@ class Backend implements Api\Json\PushBackend
 				'Content-Type' => 'application/json'
 			])) &&
 			($response = stream_get_contents($sock)) &&
-			($json = self::parse_http_response($response, $header)) &&
-			$header[0][0] == 2 &&
-			($data = json_decode($json, true)))
+			($data = self::parse_http_response($response, $header)) &&
+			$header[0][0] == 2)
 		{
 			return $data;
 		}
