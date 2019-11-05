@@ -32,6 +32,7 @@ class Session
 		if (empty($path)) $path = ini_get('session.save_path');
 		if (empty($handler)) $handler = ini_get('session.save_handler');
 
+		//error_log(__METHOD__."('$id', '$path', '$handler')");
 		switch($handler)
 		{
 			case 'files':

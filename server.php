@@ -5,7 +5,8 @@
  *
  * Start with:
  *
- * docker run --rm -it -v $(pwd):/var/www -v /var/lib/php/sessions:/var/lib/php/sessions -p9501:9501 phpswoole/swoole
+ * docker run --rm -it -v $(pwd):/var/www -v /var/lib/php/sessions:/var/lib/php/sessions \
+ *	--add-host memcached1:192.168.65.2 -p9501:9501 phpswoole/swoole
  *
  * Send message (you can get a token from the server output, when a client connects):
  *
@@ -53,15 +54,15 @@ $server->on('open', function (Swoole\Websocket\Server $server, Swoole\Http\Reque
 {
 	//var_dump($request);
 	$sessionid = $request->cookie['sessionid'];	// Api\Session::EGW_SESSION_NAME
-	$session = new EGroupware\SwoolePush\Session($sessionid);//, 'memcached1:11211,memcached2:11211', 'memcached');
+	$session = new EGroupware\SwoolePush\Session($sessionid, 'memcached1:11211,memcached2:11211', 'memcached');
 	if (!$session->exists())
 	{
-		echo "server: handshake success with fd{$request->fd}, FAILED with unknown sessionid=$sessionid\n";
+		error_log("server: handshake success with fd{$request->fd}, FAILED with unknown sessionid=$sessionid");
 		$server->close($request->fd);
 	}
 	else
 	{
-		echo "server: handshake success with fd{$request->fd} existing sessionid=$sessionid\n";
+		error_log("server: handshake success with fd{$request->fd} existing sessionid=$sessionid");
 	}
 });
 
@@ -70,7 +71,7 @@ $server->on('open', function (Swoole\Websocket\Server $server, Swoole\Http\Reque
  */
 $server->on('message', function (Swoole\Websocket\Server $server, $frame)
 {
-    echo "receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}\n";
+    error_log("receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}");
 
 	if (($data = json_decode($frame->data, true)))
 	{
@@ -125,7 +126,7 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 				}
 			}
 		}
-		echo "Pushed for $token to $send subscribers: $msg\n";
+		error_log("Pushed for $token to $send subscribers: $msg");
 	    $response->header("Content-Type", "text/pain; charset=utf-8");
 	    $response->end("$send subscribers notified\n");
 	}
@@ -137,7 +138,7 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 		{
 			$uri .= '?'.$request->server['query_string'];
 		}
-		echo "Invalid request: {$request->server['request_method']} $uri\n".$request->rawcontent()."\n";
+		error_log("Invalid request: {$request->server['request_method']} $uri\n".$request->rawcontent());
 	}
 });
 

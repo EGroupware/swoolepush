@@ -58,7 +58,7 @@ class Memcached implements Backend
 			return $this->open() !== null;
 		}
 		catch(\RuntimeException $e) {
-			echo $e->getMessage();
+			error_log(__METHOD__."() ".$e->getMessage());
 			return false;
 		}
 	}
@@ -82,11 +82,11 @@ class Memcached implements Backend
 		{
 			try {
 				$data = $memcached->get($key);
-				//var_dump("memcached('$key'=", $data);
+				//var_dump("memcached->get('$key')=", $data);
 				if ($data !== null) break;
 			}
 			catch (\Exception $e) {
-				echo $e->getMessage()."\n";
+				error_log(__METHOD__."('$key') ".$e->getMessage());
 				continue;
 			}
 		}
@@ -102,6 +102,6 @@ class Memcached implements Backend
 	 */
 	protected function key()
 	{
-		return (ini_get('memcached.sess_prefix') ?: 'memc.sess.').$this->id;
+		return (ini_get('memcached.sess_prefix') ?: 'memc.sess.key.').$this->id;
 	}
 }
