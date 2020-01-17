@@ -69,7 +69,7 @@ $server->on('open', function (Swoole\Websocket\Server $server, Swoole\Http\Reque
 /**
  * Callback for received Websocket message
  */
-$server->on('message', function (Swoole\Websocket\Server $server, $frame)
+$server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSocket\Frame $frame)
 {
     error_log("receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}");
 
@@ -145,7 +145,7 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 /**
  * Callback for closed connection
  */
-$server->on('close', function (Swoole\Websocket\Server $server, $fd)
+$server->on('close', function (Swoole\Websocket\Server $server, int $fd)
 {
 	$server->table->del($fd);
 
