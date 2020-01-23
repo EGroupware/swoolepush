@@ -61,4 +61,33 @@ class Hooks
 	{
 		return Backend::class;
 	}
+
+	/**
+	 * Hook called by Api\Links::notify method of changes in entries of all apps
+	 *
+	 * @param array $data
+	 */
+	public static function notify_all(array $data)
+	{
+		error_log(__METHOD__."(".json_encode($data).")");
+		// limit send data to ACL relevant and privacy save ones eg. just "owner"
+		$extra = null;
+		if (!empty($data['data']) && ($push_data = Api\Link::get_registry($data['target_app'], 'push_data')))
+		{
+			$extra = array_intersect_key($data['data'], array_flip((array)$push_data));
+
+			if (!is_array($push_data)) $extra = $extra[$push_data];
+		}
+
+		// get app from possible "app-subtype" string
+		list($app) = explode('-', $data['app']);
+
+		$push = new Api\Json\Push(Api\Json\Push::ALL);
+		$push->apply("app.$app.push", [
+			$data['type'],
+			$data['app'],
+			$data['id'],
+			$extra,
+		]);
+	}
 }

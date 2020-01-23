@@ -28,6 +28,7 @@ $setup_info['swoolepush']['description'] = 'Push server for EGroupware based on 
 $setup_info['swoolepush']['hooks']['framework_header'] = 'EGroupware\SwoolePush\Hooks::framework_header';
 $setup_info['swoolepush']['hooks']['csp-connect-src'] = 'EGroupware\SwoolePush\Hooks::csp_connect_src';
 $setup_info['swoolepush']['hooks']['push-backends'] = 'EGroupware\SwoolePush\Hooks::push_backends';
+$setup_info['swoolepush']['hooks']['notify-all'] = 'EGroupware\SwoolePush\Hooks::notify_all';
 
 /* Dependencies for this app to work */
 $setup_info['swoolepush']['depends'][] = array(

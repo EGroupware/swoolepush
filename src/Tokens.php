@@ -20,6 +20,15 @@ class Tokens
 {
 	const APPNAME = 'swoolepush';
 
+    /**
+     * hashing algorithm used
+     *
+     * Affects key size used in "table" of push server
+     *
+     * @todo change to sha256
+     */
+	const HASH_ALGO = "sha1";
+
 	/**
 	 * Get all tokens for the current session and user
 	 *
@@ -51,7 +60,7 @@ class Tokens
 		{
 			throw new Api\Exception\AssertionFailed("Can NOT generate session tokent without a sessionid!");
 		}
-		return sha1($GLOBALS['egw']->session->sessionid);
+		return self::hash($GLOBALS['egw']->session->sessionid);
 	}
 
 	/**
@@ -84,7 +93,7 @@ class Tokens
 	{
 		if(empty($GLOBALS['egw_info']['server']['install_id']))
 		{
-			throw new Api\Exception\AssertionFailed("Can NOT generate user tokent without an install_id!");
+			throw new Api\Exception\AssertionFailed("Can NOT generate user token without an install_id!");
 		}
 		return self::hash($GLOBALS['egw_info']['server']['install_id']);
 	}
@@ -102,9 +111,9 @@ class Tokens
 		if (empty($config['secret-date']) || $config['secret-date'] !== date('Y-m-d'))
 		{
 			Api\Config::save_value('secret-date', $config['secret-date'] = date('Y-m-d'), self::APPNAME);
-			Api\Config::save_value('secret', $config['secret'] = Api\Auth::randomstring(16), self::APPNAME);
+			Api\Config::save_value('secret', $config['secret'] = bin2hex(random_bytes(16)), self::APPNAME);
 		}
-		return sha1($config['secret'].$value);
+		return hash(self::HASH_ALGO, $config['secret'].$value);
 	}
 
 	/**
