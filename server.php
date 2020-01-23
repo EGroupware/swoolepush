@@ -54,7 +54,7 @@ $server->on('open', function (Swoole\Websocket\Server $server, Swoole\Http\Reque
 {
 	//var_dump($request);
 	$sessionid = $request->cookie['sessionid'];	// Api\Session::EGW_SESSION_NAME
-	$session = new EGroupware\SwoolePush\Session($sessionid, 'memcached1:11211,memcached2:11211', 'memcached');
+	$session = new EGroupware\SwoolePush\Session($sessionid); //, 'memcached1:11211,memcached2:11211', 'memcached');
 	if (!$session->exists())
 	{
 		error_log("server: handshake success with fd{$request->fd}, FAILED with unknown sessionid=$sessionid");
