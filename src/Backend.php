@@ -12,6 +12,7 @@
 namespace EGroupware\SwoolePush;
 
 use EGroupware\Api;
+use notifications_push;
 
 /**
  * Class to push json requests to client-side
@@ -65,7 +66,7 @@ class Backend implements Api\Json\PushBackend
 			$token = Token::User($account_id);
 		}
 		$header = [];
-		if (!($sock = self::http_open($this->url.'?token='.urlencode($token), 'POST', json_encode([
+		if (($sock = self::http_open($this->url.'?token='.urlencode($token), 'POST', json_encode([
 				'type' => $key,
 				'data' => $data,
 			]), [
@@ -73,7 +74,7 @@ class Backend implements Api\Json\PushBackend
 			])) &&
 			($response = stream_get_contents($sock)) &&
 			($data = self::parse_http_response($response, $header)) &&
-			$header[0][0] == 2)
+            substr($header[0], 9, 3)[0] == 2)
 		{
 			return $data;
 		}
@@ -81,7 +82,7 @@ class Backend implements Api\Json\PushBackend
 		Api\Cache::setInstance(__CLASS__, 'use-fallback', self::$use_fallback=true, 3600);
 
 		// send it now via the fallback method
-		$fallback = new \notifications_push();
+		$fallback = new notifications_push();
 		$fallback->addGeneric($account_id, $key, $data);
 
 		return false;
