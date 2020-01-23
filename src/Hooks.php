@@ -79,15 +79,13 @@ class Hooks
 			if (!is_array($push_data)) $extra = $extra[$push_data];
 		}
 
-		// get app from possible "app-subtype" string
-		list($app) = explode('-', $data['app']);
-
 		$push = new Api\Json\Push(Api\Json\Push::ALL);
-		$push->apply("app.$app.push", [
-			$data['type'],
-			$data['app'],
-			$data['id'],
-			$extra,
-		]);
+		$push->apply("egw.push", [[
+			'app'   => $data['app'],
+            'id'    => $data['id'],
+            'type'  => $data['type'],
+            'acl'   => $extra,
+            'account_id' => $GLOBALS['egw_info']['user']['account_id']
+		]]);
 	}
 }
