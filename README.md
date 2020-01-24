@@ -9,12 +9,17 @@
 - [x] check sessionid cookie when client opens a websocket connection
 
 ## Installation instructions
+> Most easy installation is the one comming with the [container based development system](https://github.com/EGroupware/egroupware/tree/master/doc/docker/development).
+
+To install EGroupwares push server for a regular webserver running on the host follow these instructions:
 ```
 cd /path/to/egroupware
 git clone git@github.com:EGroupware/swoolpush.git
 cd swoolpush
-docker run --rm -it -v $(pwd):/var/www -p9501:9501 phpswoole/swoole
+docker run --rm -it -v $(pwd):/var/www -v /var/lib/php/sessions:/var/lib/php/sessions -p9501:9501 phpswoole/swoole
 ```
+> You need to adapt the session-directory, if you are not using Ubuntu.
+
 Then visit setup and install swoolpush app (no run rights for users neccessary).
 
 You need to proxy the /push URL into the container, eg. for Apache
@@ -25,14 +30,16 @@ You need to proxy the /push URL into the container, eg. for Apache
 
     RewriteEngine On
     RewriteCond %{HTTP:Upgrade} =websocket [NC]
-    RewriteRule /opt/local/apache2/htdocs/(.*)           ws://localhost:9501/$1 [P,L]
+    RewriteRule /var/www/(.*)           ws://localhost:9501/$1 [P,L]
     RewriteCond %{HTTP:Upgrade} !=websocket [NC]
-    RewriteRule /opt/local/apache2/htdocs/(.*)           http://localhost:9501/$1 [P,L]
+    RewriteRule /var/www/(.*)           http://localhost:9501/$1 [P,L]
 
     ProxyPreserveHost On
     ProxyPassReverse http://localhost:9501
 </Location>
 ```
+> You need to change the above /var/www, in case you use a different document root.
+
 eg. for Nginx
 ```
 location  /egroupware/push {

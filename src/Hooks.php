@@ -49,6 +49,7 @@ class Hooks
 		{
 			$data['extra']['websocket-url'] = self::ws_url();
 			$data['extra']['websocket-tokens'] = Tokens::all();
+			$data['extra']['grants'] = $GLOBALS['egw']->acl->ajax_get_all_grants();
 		}
 	}
 
@@ -69,15 +70,15 @@ class Hooks
 	 */
 	public static function notify_all(array $data)
 	{
-		error_log(__METHOD__."(".json_encode($data).")");
 		// limit send data to ACL relevant and privacy save ones eg. just "owner"
 		$extra = null;
-		if (!empty($data['data']) && ($push_data = Api\Link::get_registry($data['target_app'], 'push_data')))
+		if (!empty($data['data']) && ($push_data = Api\Link::get_registry($data['app'], 'push_data')))
 		{
 			$extra = array_intersect_key($data['data'], array_flip((array)$push_data));
 
 			if (!is_array($push_data)) $extra = $extra[$push_data];
 		}
+		//error_log(__METHOD__."(".json_encode($data).") push_data=".json_encode($push_data)." --> extra=".json_encode($extra));
 
 		$push = new Api\Json\Push(Api\Json\Push::ALL);
 		$push->apply("egw.push", [[
