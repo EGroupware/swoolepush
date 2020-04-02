@@ -63,7 +63,7 @@ class Backend implements Api\Json\PushBackend
 		}
 		else
 		{
-			$token = Token::User($account_id);
+			$token = Tokens::User($account_id);
 		}
 		$header = [];
 		if (($sock = self::http_open($this->url.'?token='.urlencode($token), 'POST', json_encode([
