@@ -89,6 +89,23 @@ class Backend implements Api\Json\PushBackend
 	}
 
 	/**
+	 * Get users online / connected to push-server
+	 *
+	 * @return array of integer account_id currently available for push
+	 */
+	public function online()
+	{
+		if (($sock = self::http_open($this->url.'?token='.urlencode(Tokens::instance()))) &&
+			($response = stream_get_contents($sock)) &&
+			($data = self::parse_http_response($response, $header)) &&
+			substr($header[0], 9, 3)[0] == 2)
+		{
+			return json_decode($data, true);
+		}
+		return [];
+	}
+
+	/**
 	 * Open connection for HTTP request
 	 *
 	 * @param string|array $url string with url or already passed like return from parse_url

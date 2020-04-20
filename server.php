@@ -39,7 +39,10 @@ if (session_status() !== PHP_SESSION_ACTIVE)
 require __DIR__.'/vendor/autoload.php';
 
 $table = new Swoole\Table(1024);
-$table->column('tokens', Swoole\Table::TYPE_STRING, 3*40+2);
+$table->column('session', Swoole\Table::TYPE_STRING, 40);
+$table->column('user', Swoole\Table::TYPE_STRING, 40);
+$table->column('instance', Swoole\Table::TYPE_STRING, 40);
+$table->column('account_id', Swoole\Table::TYPE_INT);
 $table->create();
 
 $server = new Swoole\Websocket\Server("0.0.0.0", 9501);
@@ -77,7 +80,12 @@ $server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSock
 	{
 		if (isset($data['subscribe']) && count($data['subscribe']) === 3)
 		{
-			$server->table->set($frame->fd, ['tokens' => implode(':', $data['subscribe'])]);
+			$server->table->set($frame->fd, [
+				'session' => $data['subscribe'][0],
+				'user'    => $data['subscribe'][1],
+				'instance' => $data['subscribe'][2],
+				'account_id' => $data['account_id'],
+			]);
 			$server->push($frame->fd, json_encode([
 				'type' => 'message',
 				'data' => ['message' => 'Successful connected to push server :)']
@@ -114,12 +122,9 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 		$send = 0;
 		foreach($server->connections as $fd)
 		{
-			if ($server->exist($fd) && ($data = $server->table->get($fd, 'tokens')))
+			if ($server->exist($fd) && ($data = $server->table->get($fd)))
 			{
-				$tokens = explode(':', $data);
-
-				if (is_string($token) && in_array($token, $tokens) ||
-					is_array($token) && array_intersect($token, $tokens))
+				if ($token === $data['user'] || $token === $data['session'] || $token === $data['instance'])
 				{
 					$server->push($fd, $msg);
 					++$send;
@@ -129,6 +134,25 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 		error_log("Pushed for $token to $send subscribers: $msg");
 	    $response->header("Content-Type", "text/pain; charset=utf-8");
 	    $response->end("$send subscribers notified\n");
+	}
+	elseif (!empty($token))
+	{
+		$account_ids = [];
+		foreach($server->connections as $fd)
+		{
+			if ($server->exist($fd) && ($data = $server->table->get($fd)))
+			{
+				if ($token === $data['instance'])
+				{
+					$account_ids[] = $data['account_id'];
+				}
+			}
+		}
+		if ($account_ids) $account_ids = array_unique($account_ids);
+		$count = count($account_ids);
+		error_log("Returned for instance-token $token $count unique account_id's");
+		$response->header("Content-Type", "application/json");
+		$response->end(json_encode($account_ids));
 	}
 	else
 	{

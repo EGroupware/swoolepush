@@ -34,7 +34,11 @@ class Hooks
 	 */
 	public static function csp_connect_src()
 	{
-		return [self::ws_url()];
+		if (basename($_SERVER['PHP_SELF']) !== 'login.php')
+		{
+			return [self::ws_url()];
+		}
+		return [];
 	}
 
 	/**
@@ -49,6 +53,7 @@ class Hooks
 		{
 			$data['extra']['websocket-url'] = self::ws_url();
 			$data['extra']['websocket-tokens'] = Tokens::all();
+			$data['extra']['websocket-account_id'] = $GLOBALS['egw_info']['user']['account_id'];
 			$data['extra']['grants'] = $GLOBALS['egw']->acl->ajax_get_all_grants();
 		}
 	}

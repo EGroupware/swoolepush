@@ -32,7 +32,7 @@ class Tokens
 	/**
 	 * Get all tokens for the current session and user
 	 *
-	 * @return array
+	 * @return array with session, user and instance token, in that order
 	 * @throws Api\Exception\AssertionFailed
 	 */
 	public static function all()
@@ -127,6 +127,7 @@ class Tokens
 		{
 			$data['extra']['websocket-url'] = self::ws_url;
 			$data['extra']['websocket-tokens'] = Tokens::get();
+			$data['extra']['websocket-account_id'] = $GLOBALS['egw_info']['user']['account_id'];
 		}
 	}
 }
