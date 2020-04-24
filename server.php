@@ -48,6 +48,9 @@ $table->create();
 $server = new Swoole\Websocket\Server("0.0.0.0", 9501);
 $server->table = $table;
 
+// read Bearer Token from Backend class
+$bearer_token = EGroupware\SwoolePush\Credentials::$bearer_token;
+
 /**
  * Callback for successful Websocket handshake
  *
@@ -86,10 +89,12 @@ $server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSock
 				'instance' => $data['subscribe'][2],
 				'account_id' => $data['account_id'],
 			]);
+			/* Success is the default ;)
 			$server->push($frame->fd, json_encode([
 				'type' => 'message',
 				'data' => ['message' => 'Successful connected to push server :)']
 			]));
+			*/
 		}
 	}
 });
@@ -97,9 +102,18 @@ $server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSock
 /**
  * Callback for received HTTP request
  */
-$server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Response $response) use($server)
+$server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Response $response) use($server, $bearer_token)
 {
 	$token = $request->get['token'] ?? null;
+
+	// check Bearer token
+	if (!empty($bearer_token) && $bearer_token !== substr($request->header['authorization'], 7))
+	{
+		$response->status(401);
+		$response->header('WWW-Authenticate', 'Bearer realm="EGroupware Push Server"');
+		$response->end((!isset($request->header['authorization']) ? 'Missing' : 'Wrong').' Bearer Token!');
+		return;
+	}
 
 	switch ($request->server['request_method'])
 	{
@@ -117,6 +131,9 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 			}
 			break;
 	}
+	/*error_log($request->server['request_method'].' '.$request->server['request_uri'].
+		(!empty($request->server['query_string'])?'?'.$request->server['query_string']:'').' '.$request->server['server_protocol'].
+		' from remote_addr '.$request->server['remote_addr'].', X-Forwarded-For: '.$request->header['x-forwarded-for'].' Host: '.$request->header['host']);*/
 	if (!empty($token) && !empty($msg))
 	{
 		$send = 0;

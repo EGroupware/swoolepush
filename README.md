@@ -3,9 +3,9 @@
 > This is work in progress, do NOT use on a production system!
 
 ## Open tasks:
-- [ ] add IP check and/or other authentication to sending messages
 - [ ] check session matches HTTP host / instance AND session is not anonymous
 - [ ] rotate token by async job and push new tokens to active sessions
+- [x] require Bearer token to authorize requests / send push messages
 - [x] check sessionid cookie when client opens a websocket connection
 
 ## Installation instructions
