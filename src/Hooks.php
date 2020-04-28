@@ -48,7 +48,6 @@ class Hooks
 	 */
 	public static function framework_header($data)
 	{
-		error_log(__METHOD__."(".json_encode($data).")");
 		if ($data['popup'] === false && !empty($GLOBALS['egw']->session->sessionid))
 		{
 			$data['extra']['websocket-url'] = self::ws_url();
