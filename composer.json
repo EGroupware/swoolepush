@@ -3,7 +3,7 @@
 	"description": "EGroupware push server using Swoole",
 	"type": "egroupware-app",
 	"homepage": "https://www.egroupware.org/",
-	"license": "GPLv2+",
+	"license": "GPL-2.0-or-later",
 	"authors": [
         {
             "name": "Ralf Becker",
