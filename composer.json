@@ -11,6 +11,7 @@
         }
     ],
     "require": {
+		"egroupware/egroupware": "self.version",
 		"easyswoole/memcache": "^1.0"
 	},
     "require-dev": {
