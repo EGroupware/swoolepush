@@ -115,19 +115,4 @@ class Tokens
 		}
 		return hash(self::HASH_ALGO, $config['secret'].$value);
 	}
-
-	/**
-	 * Runs after framework js are loaded and includes all dependencies
-	 *
-	 * @param array $data
-	 */
-	public static function framework_header($data)
-	{
-		if(!$data['popup'] && !empty($GLOBALS['egw']->session->id))
-		{
-			$data['extra']['websocket-url'] = self::ws_url;
-			$data['extra']['websocket-tokens'] = Tokens::get();
-			$data['extra']['websocket-account_id'] = $GLOBALS['egw_info']['user']['account_id'];
-		}
-	}
 }
