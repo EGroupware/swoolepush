@@ -133,7 +133,7 @@ class Backend extends Credentials implements Api\Json\PushBackend
 		$request = $method.' '.$parts['path'].(empty($parts['query'])?'':'?'.$parts['query'])." HTTP/1.1\r\n".
 			"Host: ".$parts['host'].(empty($parts['port'])?'':':'.$parts['port'])."\r\n".
 			"User-Agent: swoolepush/src/Backend.php\r\n".
-			(!empty(self::$bearer_token) ? "Authorization: Bearer ".self::$bearer_token."\r\n" : '').
+			"Authorization: Bearer ".self::getBearerToken()."\r\n".
 			"Accept: application/json\r\n".
 			"Cache-Control: no-cache\r\n".
 			"Pragma:no-cache\r\n".

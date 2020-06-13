@@ -49,7 +49,7 @@ $server = new Swoole\Websocket\Server("0.0.0.0", 9501);
 $server->table = $table;
 
 // read Bearer Token from Backend class
-$bearer_token = EGroupware\SwoolePush\Credentials::$bearer_token;
+$bearer_token = EGroupware\SwoolePush\Credentials::getBearerToken();
 
 /**
  * Callback for successful Websocket handshake
