@@ -39,7 +39,7 @@ class Credentials
 			}
 			if (!(include $file) || empty($bearer_token))
 			{
-				die("Could not read or generate PUSH server token file $file!");
+				throw new \Exception("Could not read or generate PUSH server token file $file!");
 			}
 			self::$bearer_token = $bearer_token;
 		}
