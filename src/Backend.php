@@ -30,6 +30,8 @@ class Backend extends Credentials implements Api\Json\PushBackend
 	function __construct()
 	{
 		$this->url = Api\Framework::getUrl(Api\Framework::link('/push'));
+		// stopping endless Travis logs because of http:///egroupware/ url not reachable
+		if (substr($this->url, 0, 8) === 'http:///') self::$use_fallback = true;
 
 		if (!isset(self::$use_fallback))
 		{
