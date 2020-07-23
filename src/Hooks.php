@@ -74,12 +74,22 @@ class Hooks
 	 */
 	public static function notify_all(array $data)
 	{
+		// do NOT push a not explicitly set type, as it from an not yet push aware app
+		if (empty($data['type']) || $data['type'] === 'unknown') return;
+
 		// limit send data to ACL relevant and privacy save ones eg. just "owner"
 		$extra = null;
 		if (!empty($data['data']) && ($push_data = Api\Link::get_registry($data['app'], 'push_data')))
 		{
-			$extra = array_intersect_key($data['data'], array_flip((array)$push_data));
-
+			// apps (eg. calendar) can also specify a callback to clean the data
+			if (!is_array($push_data) && is_callable($push_data))
+			{
+				$extra = $push_data($data['data']);
+			}
+			else
+			{
+				$extra = array_intersect_key($data['data'], array_flip((array)$push_data));
+			}
 			if (!is_array($push_data)) $extra = $extra[$push_data];
 		}
 		//error_log(__METHOD__."(".json_encode($data).") push_data=".json_encode($push_data)." --> extra=".json_encode($extra));
