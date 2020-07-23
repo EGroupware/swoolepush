@@ -50,6 +50,11 @@ $server->table = $table;
 
 // read Bearer Token from Backend class
 $bearer_token = EGroupware\SwoolePush\Credentials::getBearerToken();
+$valid_authorization = [
+    'Bearer '.$bearer_token,
+    // Dovecot 2.2+ OX push-plugin only supports basic auth
+    'Basic '.base64_encode('Bearer:'.$bearer_token),
+];
 
 /**
  * Callback for successful Websocket handshake
@@ -102,15 +107,16 @@ $server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSock
 /**
  * Callback for received HTTP request
  */
-$server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Response $response) use($server, $bearer_token)
+$server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Response $response) use($server, $valid_authorization)
 {
 	$token = $request->get['token'] ?? null;
 
 	// check Bearer token
-	if (!empty($bearer_token) && $bearer_token !== substr($request->header['authorization'], 7))
+	if (!in_array($request->header['authorization'], $valid_authorization))
 	{
 		$response->status(401);
 		$response->header('WWW-Authenticate', 'Bearer realm="EGroupware Push Server"');
+		$response->header('WWW-Authenticate', 'Basic realm="EGroupware Push Server"');
 		$response->end((!isset($request->header['authorization']) ? 'Missing' : 'Wrong').' Bearer Token!');
 		return;
 	}
@@ -130,6 +136,62 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 				$msg = json_encode($data);
 			}
 			break;
+		case 'PUT':
+			// Dovecot 2.2+ OX push plugin
+			var_dump($request);
+			if (strpos($request->header['content-type'], 'application/json') === 0)
+			{
+				if (($data = json_decode($request->rawcontent(), true)) === null)
+				{
+					$response->status(400);
+					$response->end('Invalid JSON: ' . json_last_error_msg());
+					error_log('Invalid JSON: ' . json_last_error_msg());
+					return;
+				}
+				$total = 0;
+				foreach (explode(';;', $data['user']) as $user)
+				{
+					$matches = null;
+					if (!preg_match('/^(\d+::\d+);([^@]+)@(.*)$/', $user, $matches))
+					{
+						$response->status(400);
+						$response->write('Can NOT parse user attribute!');
+						error_log('Can NOT parse user attribute!');
+						continue;
+					}
+					list(, $account_acc_id, $token, $host) = $matches;
+					$msg = json_encode([
+						'type' => 'apply',
+						'data' => [
+							'func' => 'egw.push',
+							'parms' => [[
+								'app' => 'mail',
+								'id' => $account_acc_id . '::' . base64_encode($data['folder']) . '::' . $data['imap-uid'],
+								'type' => 'add',
+								'acl' => $data,
+								'account_id' => 0,
+							]]
+						],
+					]);
+					$send = 0;
+					foreach ($server->connections as $fd)
+					{
+						if ($server->exist($fd) && ($data = $server->table->get($fd)))
+						{
+							if ($token === $data['user'] || $token === $data['session'] || $token === $data['instance'])
+							{
+								$server->push($fd, $msg);
+								++$send;
+								++$total;
+							}
+						}
+					}
+					error_log("Pushed for $token to $send subscribers: $msg");
+				}
+				$response->header("Content-Type", "text/pain; charset=utf-8");
+				$response->end("$total subscribers notified\n");
+				return;
+			}
 	}
 	/*error_log($request->server['request_method'].' '.$request->server['request_uri'].
 		(!empty($request->server['query_string'])?'?'.$request->server['query_string']:'').' '.$request->server['server_protocol'].
