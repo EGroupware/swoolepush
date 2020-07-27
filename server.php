@@ -160,6 +160,11 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 						continue;
 					}
 					list(, $account_acc_id, $token, $host) = $matches;
+					// decode mime-encoded subject eg. =?utf-8?b?something=?=
+					if (strpos($data['subject'], '=?') !== false)
+                    {
+						$data['subject'] = Horde_Mime::decode($data['subject']);
+                    }
 					$msg = json_encode([
 						'type' => 'apply',
 						'data' => [
