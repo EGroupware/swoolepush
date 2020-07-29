@@ -90,7 +90,6 @@ class Hooks
 			{
 				$extra = array_intersect_key($data['data'], array_flip((array)$push_data));
 			}
-			if (!is_array($push_data)) $extra = $extra[$push_data];
 		}
 		//error_log(__METHOD__."(".json_encode($data).") push_data=".json_encode($push_data)." --> extra=".json_encode($extra));
 
