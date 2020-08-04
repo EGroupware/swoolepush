@@ -137,8 +137,7 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 			}
 			break;
 		case 'PUT':
-			// Dovecot 2.2+ OX push plugin
-			var_dump($request);
+			// Dovecot 2.2+ OX or Dovecot 2.3+ Lua push plugin
 			if (strpos($request->header['content-type'], 'application/json') === 0)
 			{
 				if (($data = json_decode($request->rawcontent(), true)) === null)
@@ -160,19 +159,28 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 						continue;
 					}
 					list(, $account_acc_id, $token, $host) = $matches;
-					// decode mime-encoded subject eg. =?utf-8?b?something=?=
-					if (strpos($data['subject'], '=?') !== false)
-                    {
-						$data['subject'] = Horde_Mime::decode($data['subject']);
-                    }
+					// decode mime-encoded from or subject eg. =?utf-8?b?something=?=
+					foreach(['from', 'subject'] as $name)
+					{
+						if (!empty($data[$name]) && strpos($data[$name], '=?') !== false)
+						{
+							require_once __DIR__.'/vendor/autoload.php';
+							$data[$name] = Horde_Mime::decode($data[$name]);
+						}
+					}
+					$uids = array_map(function($uid) use ($account_acc_id, $data)
+					{
+						return $account_acc_id . '::' . base64_encode($data['folder']) . '::' . $uid;
+					}, (array)$data['imap-uid']);
 					$msg = json_encode([
 						'type' => 'apply',
 						'data' => [
 							'func' => 'egw.push',
 							'parms' => [[
 								'app' => 'mail',
-								'id' => $account_acc_id . '::' . base64_encode($data['folder']) . '::' . $data['imap-uid'],
-								'type' => 'add',
+								'id' => count($uids) == 1 ? $uids[0] : $uids,
+								'type' => in_array($data['event'], ['MessageNew', 'MessageAppend']) ? 'add' :
+									($data['Event'] === 'MessageExpunge' ? 'delete' : 'update'),
 								'acl' => $data,
 								'account_id' => 0,
 							]]
