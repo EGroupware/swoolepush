@@ -7,7 +7,7 @@
 --
 -- server is sent a PUT message with JSON body like push_notification_driver = ox:url=<push_lua_url> user_from_metadata
 -- plus additionally the events MessageAppend, MessageExpunge, FlagsSet and FlagsClear
--- MessageTrash and MessageRead are ignored, so are empty FlagSet/Clear or FlagSet NonJunk (TB)
+-- MessageTrash and MessageRead are ignored, so are empty or NonJunk FlagSet/Clear from TB
 --
 
 local http = require "socket.http"
@@ -152,8 +152,8 @@ function dovecot_lua_notify_event_flags_set(ctx, event)
     end
     if (event.name == "FlagsClear")
     then
-        msg["flags_old"] = event.flags_old
-        msg["keywords_old"] = event.keywords_old
+        msg.flags_old = event.flags_old
+        msg.keywords_old = event.keywords_old
     end
     table.insert(ctx.messages, msg)
 end
