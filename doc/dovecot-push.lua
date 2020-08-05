@@ -152,8 +152,8 @@ function dovecot_lua_notify_event_flags_set(ctx, event)
     end
     if (event.name == "FlagsClear")
     then
-        msg["flags-old"] = event.flags_old
-        msg["keywords-old"] = event.keywords_old
+        msg["flags_old"] = event.flags_old
+        msg["keywords_old"] = event.keywords_old
     end
     table.insert(ctx.messages, msg)
 end
