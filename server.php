@@ -180,7 +180,7 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 								'app' => 'mail',
 								'id' => count($uids) == 1 ? $uids[0] : $uids,
 								'type' => in_array($data['event'], ['MessageNew', 'MessageAppend']) ? 'add' :
-									($data['Event'] === 'MessageExpunge' ? 'delete' : 'update'),
+									($data['event'] === 'MessageExpunge' ? 'delete' : 'update'),
 								'acl' => $data,
 								'account_id' => 0,
 							]]
