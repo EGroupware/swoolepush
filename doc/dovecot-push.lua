@@ -137,16 +137,25 @@ function dovecot_lua_notify_event_flags_set(ctx, event)
         end
         return;
     end
-    table.insert(ctx.messages, {
+    local msg = {
         user = ctx.meta,
         ["imap-uidvalidity"] = event.uid_validity,
         ["imap-uid"] = event.uid,
         folder = event.mailbox,
         event = event.name,
         flags = event.flags,
-        keywords = event.keywords,
-        unseen = status.unseen
-    })
+        keywords = event.keywords
+    }
+    if (status ~= nil)
+    then
+        msg.unseen = status.unseen
+    end
+    if (event.name == "FlagsClear")
+    then
+        msg["flags-old"] = event.flags_old
+        msg["keywords-old"] = event.keywords_old
+    end
+    table.insert(ctx.messages, msg)
 end
 
 function arrayEqual(t1, t2)
@@ -162,21 +171,7 @@ function arrayEqual(t1, t2)
 end
 
 function dovecot_lua_notify_event_flags_clear(ctx, event)
-    -- check if there is a push token registered AND something to clear (TB sends it empty)
-    if (ctx.meta == nil or (#event.flags == 0 and #event.keywords == 0)) then
-        return
-    end
-    table.insert(ctx.messages, {
-        user = ctx.meta,
-        ["imap-uidvalidity"] = event.uid_validity,
-        ["imap-uid"] = event.uid,
-        folder = event.mailbox,
-        event = event.name,
-        flags = event.flags,
-        ["flags-old"] = event.flags_old,
-        keywords = event.keywords,
-        ["keywords-old"] = event.keywords_old
-    })
+    dovecot_lua_notify_event_flags_set(ctx, event)
 end
 
 function dovecot_lua_notify_end_txn(ctx)
