@@ -9,11 +9,12 @@
 -- plus additionally the events MessageAppend, MessageExpunge, FlagsSet and FlagsClear
 -- MessageTrash and MessageRead are ignored, so are empty or NonJunk FlagSet/Clear from TB
 --
+-- Needs lua-socket and lua-json packages plus dovecot-lua!
+--
 
 local http = require "socket.http"
 local ltn12 = require "ltn12"
--- luarocks install json-lua
-local json = require "JSON"
+local json = require "json"
 
 function table_get(t, k, d)
   return t[k] or d
@@ -167,7 +168,7 @@ function arrayEqual(t1, t2)
     then
         return true
     end
-    return json:encode(t1) == json:encode(t2)
+    return json.encode(t1) == json.encode(t2)
 end
 
 function dovecot_lua_notify_event_flags_clear(ctx, event)
@@ -179,7 +180,7 @@ function dovecot_lua_notify_end_txn(ctx)
     for i,msg in ipairs(ctx.messages) do
         local e = dovecot.event(ctx.event)
         e:set_name("lua_notify_mail_finished")
-        reqbody = json:encode(msg)
+        reqbody = json.encode(msg)
         e:log_debug(ctx.ep .. " - sending " .. reqbody)
         res, code = http.request({
             method = "PUT",
