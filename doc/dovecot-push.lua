@@ -164,9 +164,9 @@ function arrayEqual(t1, t2)
     then
         return false
     end
-    if (#t1 == 1 and t1[1] == t2[1])
+    if (#t1 == 1)
     then
-        return true
+        return  t1[1] == t2[1]
     end
     return json.encode(t1) == json.encode(t2)
 end
