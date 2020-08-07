@@ -31,7 +31,10 @@ class Credentials
 			// try a couple times before giving up
 			for ($n=0; $n < 10 && !file_exists($file); ++$n)
 			{
-				if (!file_put_contents($file, "<?php\n\$bearer_token = '".base64_encode(random_bytes(16))."';\n", LOCK_EX))
+				if (!file_put_contents($file, "<?php\n\$bearer_token = '".
+					// make sure bearer-token does NOT contain url-special chars, so it can be used in an URL
+					substr(str_replace(['/', '+'], '',
+						base64_encode(random_bytes(24))), 0, 16)."';\n", LOCK_EX))
 				{
 					usleep(100);
 					clearstatcache(false, $file);
