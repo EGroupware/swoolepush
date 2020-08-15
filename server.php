@@ -172,6 +172,7 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 					{
 						return $account_acc_id . '::' . base64_encode($data['folder']) . '::' . $uid;
 					}, (array)$data['imap-uid']);
+					$data['event'] = ucfirst($data['event']);   // Dovecot 2.2 uses "messageNew", while 2.3 "MessageNew" :(
 					$msg = json_encode([
 						'type' => 'apply',
 						'data' => [
