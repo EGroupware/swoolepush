@@ -190,9 +190,9 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 					$send = 0;
 					foreach ($server->connections as $fd)
 					{
-						if ($server->exist($fd) && ($data = $server->table->get($fd)))
+						if ($server->exist($fd) && ($tokens = $server->table->get($fd)))
 						{
-							if ($token === $data['user'] || $token === $data['session'] || $token === $data['instance'])
+							if ($token === $tokens['user'] || $token === $tokens['session'] || $token === $tokens['instance'])
 							{
 								$server->push($fd, $msg);
 								++$send;
@@ -215,9 +215,9 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 		$send = 0;
 		foreach($server->connections as $fd)
 		{
-			if ($server->exist($fd) && ($data = $server->table->get($fd)))
+			if ($server->exist($fd) && ($tokens = $server->table->get($fd)))
 			{
-				if ($token === $data['user'] || $token === $data['session'] || $token === $data['instance'])
+				if ($token === $tokens['user'] || $token === $tokens['session'] || $token === $tokens['instance'])
 				{
 					$server->push($fd, $msg);
 					++$send;
