@@ -22,7 +22,15 @@ class Backend extends Credentials implements Api\Json\PushBackend
 	protected $connection;
 	protected $url;
 
-	protected static $use_fallback;
+	/**
+	 * After how many failed attempts, stop trying
+	 */
+	const MAX_FAILED_ATTEMPTS = 3;
+	/**
+	 * How long to stop trying after N failed attempts
+	 */
+	const MIN_BACKOFF_TIME = 60;
+	const MAX_BACKOFF_TIME = 3600;
 
 	/**
 	 * Constructor
@@ -31,23 +39,72 @@ class Backend extends Credentials implements Api\Json\PushBackend
 	{
 		$this->url = Api\Framework::getUrl(Api\Framework::link('/push'));
 		// stopping endless Travis logs because of http:///egroupware/ url not reachable
-		if (substr($this->url, 0, 8) === 'http:///') self::$use_fallback = true;
+		if (substr($this->url, 0, 8) === 'http:///') self::$failed_attempts = true;
 
-		if (!isset(self::$use_fallback))
+		if (($n=self::failedAttempts()) > self::MAX_FAILED_ATTEMPTS)
 		{
-			self::$use_fallback = Api\Cache::getInstance(__CLASS__, 'use-fallback');
+			throw new Api\Exception\NotFound("Stopped trying to connect to push server $this->url after $n failed attempts!");
 		}
+	}
 
-		if (self::$use_fallback === true)
+	/**
+	 * Return or increment failed attempts
+	 *
+	 * If the failed attempts exceed MAX_FAILED_ATTEMPTS=3, we stop trying to talk to push server for
+	 * a exponential increased (doubled) time between MIN_BACKOFF_TIME=60 and MAX_BACKOFF_TIME=3600.
+	 *
+	 * @param ?int $incr =null
+	 * @return int number of failed attempts
+	 */
+	public static function failedAttempts($incr=null)
+	{
+		static $failed_attempts;
+
+		if (!isset($failed_attempts))
 		{
-			throw new Api\Exception\NotFound("Can't connect to push server $this->url!");
+			$failed_attempts = (int)Api\Cache::getInstance(__CLASS__, 'failed-attempts');
 		}
+		if (isset($incr))
+		{
+			if (($failed_attempts += $incr) < 0) $failed_attempts = 0;
+
+			Api\Cache::setInstance(__CLASS__, 'failed-attempts', $failed_attempts,
+				self::backoffTime($failed_attempts > self::MAX_FAILED_ATTEMPTS ? true : ($failed_attempts ? null : false)));
+		}
+		return $failed_attempts;
+	}
+
+	/**
+	 * Return current backoff time
+	 *
+	 * @param ?bool $double=null true: double the time up to MAX_BACKOFF_TIME, false: reset time to MIN_BACKOFF_TIME
+	 * @return int backoff time
+	 */
+	public static function backoffTime($double=null)
+	{
+		static $backoff_time;
+		if (!isset($backoff_time) && !($backoff_time = (int)Api\Cache::getInstance(__CLASS__, 'backoff-time')))
+		{
+			$backoff_time = self::MIN_BACKOFF_TIME;
+		}
+		if ($double === false && $backoff_time > self::MIN_BACKOFF_TIME)
+		{
+			Api\Cache::setInstance(__CLASS__, 'backoff-time', $backoff_time = self::MIN_BACKOFF_TIME);
+			error_log(__METHOD__."($incr) reset backoff-time to $backoff_time seconds");
+		}
+		elseif ($double)
+		{
+			if (($backoff_time *= 2) > self::MAX_BACKOFF_TIME) $backoff_time = self::MAX_BACKOFF_TIME;
+			error_log(__METHOD__."($incr) increased backoff-time to $backoff_time seconds");
+			Api\Cache::setInstance(__CLASS__, 'backoff-time', $backoff_time);
+		}
+		return $backoff_time;
 	}
 
 	/**
 	 * Adds any type of data to the message
 	 *
-	 * @param int $account_id account_id to push message too
+	 * @param ?int $account_id account_id to push message too
 	 * @param string $key
 	 * @param mixed $data
 	 * @return string|false response from push server "N subscribers notified"
@@ -79,10 +136,11 @@ class Backend extends Credentials implements Api\Json\PushBackend
 			($body = self::parse_http_response($response, $header)) &&
             substr($header[0], 9, 3)[0] == 2)
 		{
+			self::failedAttempts(-1);
 			return $body;
 		}
 		// not try again for 1h
-		Api\Cache::setInstance(__CLASS__, 'use-fallback', self::$use_fallback=true, 3600);
+		self::failedAttempts(1);
 
 		// send it now via the fallback method
 		$fallback = new notifications_push();
@@ -103,9 +161,15 @@ class Backend extends Credentials implements Api\Json\PushBackend
 			($data = self::parse_http_response($response, $header)) &&
 			substr($header[0], 9, 3)[0] == 2)
 		{
+			self::failedAttempts(-1);
 			return json_decode($data, true);
 		}
-		return [];
+		// not try again for 1h
+		self::failedAttempts(1);
+
+		// send it now via the fallback method
+		$fallback = new notifications_push();
+		return $fallback->online();
 	}
 
 	/**
