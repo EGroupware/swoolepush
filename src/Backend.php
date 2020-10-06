@@ -38,12 +38,12 @@ class Backend extends Credentials implements Api\Json\PushBackend
 	function __construct()
 	{
 		$this->url = Api\Framework::getUrl(Api\Framework::link('/push'));
-		// stopping endless Travis logs because of http:///egroupware/ url not reachable
-		if (substr($this->url, 0, 8) === 'http:///') self::$failed_attempts = true;
-
-		if (($n=self::failedAttempts()) > self::MAX_FAILED_ATTEMPTS)
+		// stopping cli with default URL "/egroupware" and endless Travis logs because of http:///egroupware/ url not reachable
+		if (substr($this->url, 0, 8) === 'http:///' ||
+			($n=self::failedAttempts()) > self::MAX_FAILED_ATTEMPTS)
 		{
-			throw new Api\Exception\NotFound("Stopped trying to connect to push server $this->url after $n failed attempts!");
+			throw new Api\Exception\NotFound("Stopped trying to connect to push server $this->url".
+				(isset($n) ? "after $n failed attempts!" : "!"));
 		}
 	}
 
