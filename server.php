@@ -51,9 +51,9 @@ $server->table = $table;
 // read Bearer Token from Backend class
 $bearer_token = EGroupware\SwoolePush\Credentials::getBearerToken();
 $valid_authorization = [
-    'Bearer '.$bearer_token,
-    // Dovecot 2.2+ OX push-plugin only supports basic auth
-    'Basic '.base64_encode('Bearer:'.$bearer_token),
+	'Bearer '.$bearer_token,
+	// Dovecot 2.2+ OX push-plugin only supports basic auth
+	'Basic '.base64_encode('Bearer:'.$bearer_token),
 ];
 
 /**
@@ -82,9 +82,15 @@ $server->on('open', function (Swoole\Websocket\Server $server, Swoole\Http\Reque
  */
 $server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSocket\Frame $frame)
 {
-    error_log("receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}");
-
-	if (($data = json_decode($frame->data, true)))
+	error_log("receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}");
+	
+	// client testing the websocket connection with a "ping" message --> send back "pong"
+	if ($frame->data === 'ping')
+	{
+		$server->push($frame->fd, 'pong');
+	}
+	// client subscribes to channels
+	elseif (($data = json_decode($frame->data, true)))
 	{
 		if (isset($data['subscribe']) && count($data['subscribe']) === 3)
 		{
@@ -94,12 +100,6 @@ $server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSock
 				'instance' => $data['subscribe'][2],
 				'account_id' => $data['account_id'],
 			]);
-			/* Success is the default ;)
-			$server->push($frame->fd, json_encode([
-				'type' => 'message',
-				'data' => ['message' => 'Successful connected to push server :)']
-			]));
-			*/
 		}
 	}
 });
@@ -225,8 +225,8 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 			}
 		}
 		error_log("Pushed for $token to $send subscribers: $msg");
-	    $response->header("Content-Type", "text/pain; charset=utf-8");
-	    $response->end("$send subscribers notified\n");
+		$response->header("Content-Type", "text/pain; charset=utf-8");
+		$response->end("$send subscribers notified\n");
 	}
 	elseif (!empty($token))
 	{
@@ -265,8 +265,6 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 $server->on('close', function (Swoole\Websocket\Server $server, int $fd)
 {
 	$server->table->del($fd);
-
-    echo "client {$fd} closed\n";
 });
 
 $server->start();
