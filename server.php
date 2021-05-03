@@ -38,6 +38,13 @@ if (session_status() !== PHP_SESSION_ACTIVE)
 }
 require __DIR__.'/vendor/autoload.php';
 
+// allow to set a higher number of push users
+if (($max_users = (int)($_SERVER['EGW_MAX_PUSH_USERS'] ?: 1024)) < 1024)
+{
+    $max_users = 1024;
+}
+$max_users_used = 0;
+
 $table = new Swoole\Table(1024);
 $table->column('session', Swoole\Table::TYPE_STRING, 40);
 $table->column('user', Swoole\Table::TYPE_STRING, 40);
@@ -80,9 +87,9 @@ $server->on('open', function (Swoole\Websocket\Server $server, Swoole\Http\Reque
 /**
  * Callback for received Websocket message
  */
-$server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSocket\Frame $frame)
+$server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSocket\Frame $frame) use ($max_users, &$max_users_used)
 {
-	error_log("receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}");
+	error_log("receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}, users current/highest/max: ".$server->table->count()."/$max_users_used/$max_users");
 	
 	// client testing the websocket connection with a "ping" message --> send back "pong"
 	if ($frame->data === 'ping')
@@ -100,6 +107,10 @@ $server->on('message', function (Swoole\Websocket\Server $server, Swoole\WebSock
 				'instance' => $data['subscribe'][2],
 				'account_id' => $data['account_id'],
 			]);
+			if (($used = $server->table->count()) > $max_users_used)
+            {
+                $max_users_used = $used;
+            }
 		}
 	}
 });
