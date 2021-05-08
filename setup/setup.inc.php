@@ -12,7 +12,7 @@
 
 $setup_info['swoolepush']['name']    = 'swoolepush';
 $setup_info['swoolepush']['title']   = 'Swoole Push Server';
-$setup_info['swoolepush']['version'] = '20.1';
+$setup_info['swoolepush']['version'] = '21.1';
 $setup_info['swoolepush']['app_order'] = 7;
 $setup_info['swoolepush']['enable']  = 2;
 $setup_info['swoolepush']['autoinstall'] = true;	// install automatically on update
@@ -33,5 +33,5 @@ $setup_info['swoolepush']['hooks']['notify-all'] = 'EGroupware\SwoolePush\Hooks:
 /* Dependencies for this app to work */
 $setup_info['swoolepush']['depends'][] = array(
 	'appname' => 'api',
-	'versions' => array('20.1')
+	'versions' => array('21.1')
 );
