@@ -20,10 +20,6 @@ function table_get(t, k, d)
   return t[k] or d
 end
 
-function script_init()
-  return 0
-end
-
 function dovecot_lua_notify_begin_txn(user)
     local meta = user:metadata_get("/private/vendor/vendor.dovecot/http-notify")
     if (meta == nil or meta:sub(1,5) ~= "user=")
