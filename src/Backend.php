@@ -104,7 +104,7 @@ class Backend extends Credentials implements Api\Json\PushBackend
 	/**
 	 * Adds any type of data to the message
 	 *
-	 * @param ?int $account_id account_id to push message too
+	 * @param ?int|int[] $account_id account_id(s) to push message too, null: session, 0: whole instance
 	 * @param string $key
 	 * @param mixed $data
 	 * @return string|false response from push server "N subscribers notified"
@@ -116,17 +116,22 @@ class Backend extends Credentials implements Api\Json\PushBackend
 		{
 			$token = Tokens::session();
 		}
-		elseif ($account_id === 0)
+		elseif (is_int($account_id) && $account_id === 0)
 		{
 			$token = Tokens::instance();
 		}
 		else
 		{
-			$token = Tokens::User($account_id);
+			$token = [];
+			foreach((array)$account_id as $account_id)
+			{
+				$token[] = Tokens::User($account_id);
+			}
 		}
 		//error_log(__METHOD__."($account_id, '$key', ".json_encode($data).") pushing to token $token");
 		$header = [];
-		if (($sock = self::http_open($this->url.'?token='.urlencode($token), 'POST', json_encode([
+		if (($sock = self::http_open($this->url, 'POST', json_encode([
+				'token' => $token,
 				'type' => $key,
 				'data' => $data,
 			]), [

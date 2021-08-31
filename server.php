@@ -203,7 +203,8 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 					{
 						if ($server->exist($fd) && ($tokens = $server->table->get($fd)))
 						{
-							if ($token === $tokens['user'] || $token === $tokens['session'] || $token === $tokens['instance'])
+							if (is_array($token) && in_array($tokens['user'], $token) ||
+                                is_string($token) && ($token === $tokens['user'] || $token === $tokens['session'] || $token === $tokens['instance']))
 							{
 								$server->push($fd, $msg);
 								++$send;
@@ -211,6 +212,7 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 							}
 						}
 					}
+                    if (is_array($token)) $token = count($token).' tokens';
 					error_log("Pushed for $token to $send subscribers: $msg");
 				}
 				$response->header("Content-Type", "text/pain; charset=utf-8");
@@ -228,13 +230,15 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 		{
 			if ($server->exist($fd) && ($tokens = $server->table->get($fd)))
 			{
-				if ($token === $tokens['user'] || $token === $tokens['session'] || $token === $tokens['instance'])
+				if (is_array($token) && in_array($tokens['user'], $token) ||
+					is_string($token) && ($token === $tokens['user'] || $token === $tokens['session'] || $token === $tokens['instance']))
 				{
 					$server->push($fd, $msg);
 					++$send;
 				}
 			}
 		}
+		if (is_array($token)) $token = count($token).' tokens';
 		error_log("Pushed for $token to $send subscribers: $msg");
 		$response->header("Content-Type", "text/pain; charset=utf-8");
 		$response->end("$send subscribers notified\n");
