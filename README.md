@@ -1,7 +1,5 @@
 # Push server for EGroupware based on PHP Swoole extension
 
-> This is work in progress, do NOT use on a production system!
-
 ## Open tasks:
 - [ ] check session matches HTTP host / instance AND session is not anonymous
 - [ ] rotate token by async job and push new tokens to active sessions
