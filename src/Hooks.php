@@ -51,7 +51,8 @@ class Hooks
 		if ($data['popup'] === false && !empty($GLOBALS['egw']->session->sessionid))
 		{
 			$data['extra']['websocket-url'] = self::ws_url();
-			$data['extra']['websocket-tokens'] = Tokens::all();
+			$data['extra']['websocket-tokens'] = $GLOBALS['egw']->session->session_flags === 'A' ?
+				[Tokens::session(), null, null] : Tokens::all();    // send anonymous session/user only a session token
 			$data['extra']['websocket-account_id'] = $GLOBALS['egw_info']['user']['account_id'];
 			$data['extra']['grants'] = $GLOBALS['egw']->acl->ajax_get_all_grants();
 		}
