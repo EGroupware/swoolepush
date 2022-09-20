@@ -17,7 +17,6 @@
 		}
 	],
     "require": {
-		"egroupware/egroupware": "self.version",
 		"easyswoole/memcache": "^1.0",
 		"pear-pear.horde.org/horde_mime": "^2.11"
 	},
