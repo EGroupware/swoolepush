@@ -147,9 +147,12 @@ class Backend extends Credentials implements Api\Json\PushBackend
 		// not try again for 1h
 		self::failedAttempts(1);
 
-		// send it now via the fallback method
-		$fallback = new notifications_push();
-		$fallback->addGeneric($account_id, $key, $data);
+		// send it now via the fallback method, if notifications installed and enabled for the user
+		if (!empty($GLOBALS['egw_info']['user']['apps']['notifications']))
+		{
+			$fallback = new notifications_push();
+			$fallback->addGeneric($account_id, $key, $data);
+		}
 
 		return false;
 	}
