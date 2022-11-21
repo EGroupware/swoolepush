@@ -45,7 +45,7 @@ if (($max_users = (int)($_SERVER['EGW_MAX_PUSH_USERS'] ?: 1024)) < 1024)
 }
 $max_users_used = 0;
 
-$table = new Swoole\Table(1024);
+$table = new Swoole\Table($max_users);
 $table->column('session', Swoole\Table::TYPE_STRING, 40);
 $table->column('user', Swoole\Table::TYPE_STRING, 40);
 $table->column('instance', Swoole\Table::TYPE_STRING, 40);
