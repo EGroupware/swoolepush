@@ -135,7 +135,7 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 	switch ($request->server['request_method'])
 	{
 		case 'GET':
-			$msg = $request->get['msg'];
+			$msg = $request->get['msg'] ?? null;
 			break;
 		case 'POST':
 			$msg = $request->rawcontent();
