@@ -68,6 +68,25 @@ class Hooks
 		return Backend::class;
 	}
 
+	protected static $push_disabled = false;
+
+	/**
+	 * Disable automatic push notifications via link-system for the duration of the request
+	 *
+	 * This does NOT affect other requests, nor direct calls to push (new Api\Json\Push())->$method() calls!
+	 *
+	 * @param bool|null $disable true: disable, false: re-enable, null (default) don't change just return current setting
+	 * @return bool true: push currently disabled, false: push currently enabled
+	 */
+	public static function pushDisabled(bool $disable=null)
+	{
+		if (isset($disable))
+		{
+			self::$push_disabled = $disable;
+		}
+		return self::$push_disabled;
+	}
+
 	/**
 	 * Hook called by Api\Links::notify method of changes in entries of all apps
 	 *
@@ -76,7 +95,7 @@ class Hooks
 	public static function notify_all(array $data)
 	{
 		// do NOT push a not explicitly set type, as it from an not yet push aware app
-		if (empty($data['type']) || $data['type'] === 'unknown') return;
+		if (self::$push_disabled || empty($data['type']) || $data['type'] === 'unknown') return;
 
 		// limit send data to ACL relevant and privacy save ones eg. just "owner"
 		$extra = null;
