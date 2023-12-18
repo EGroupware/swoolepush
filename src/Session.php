@@ -52,6 +52,7 @@ class Session
 	/**
 	 * Check if given session exists
 	 *
+	 * @throws \Exception on connection errors with ALL memcached servers
 	 * @return bool
 	 */
 	function exists()
@@ -60,10 +61,11 @@ class Session
 	}
 
 	/**
-	 * Open session readonly and return it's values
+	 * Open session readonly and return its values
 	 *
 	 * @return array
 	 * @throws RuntimeException
+	 * @throws \Exception on connection errors with ALL memcached servers
 	 */
 	function open()
 	{
