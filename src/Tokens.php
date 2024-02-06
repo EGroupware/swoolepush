@@ -58,7 +58,7 @@ class Tokens
 	{
 		if(empty($GLOBALS['egw']->session->sessionid))
 		{
-			throw new Api\Exception\AssertionFailed("Can NOT generate session tokent without a sessionid!");
+			throw new Api\Exception\AssertionFailed("Can NOT generate session token without a sessionid!");
 		}
 		return self::hash($GLOBALS['egw']->session->sessionid);
 	}
@@ -78,7 +78,7 @@ class Tokens
 		}
 		if(empty($account_id))
 		{
-			throw new Api\Exception\AssertionFailed("Can NOT generate user tokent without an account_id!");
+			throw new Api\Exception\AssertionFailed("Can NOT generate user token without an account_id!");
 		}
 		return self::hash($account_id);
 	}
