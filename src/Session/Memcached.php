@@ -21,6 +21,7 @@ class Memcached implements Backend
 	 * @var \EasySwoole\Memcache\Memcache[]
 	 */
 	protected static $memcached;
+	protected static $save_path;
 
 	/**
 	 * Constructor
@@ -35,7 +36,7 @@ class Memcached implements Backend
 
 		if (!isset(self::$memcached))
 		{
-			foreach(explode(',', $path ?? ini_get('session.save_path')) as $host_port)
+			foreach(explode(',', self::$save_path = $path ?? ini_get('session.save_path')) as $host_port)
 			{
 				list ($host, $port) = explode(':', $host_port);
 				$config = new \EasySwoole\Memcache\Config([
@@ -51,6 +52,7 @@ class Memcached implements Backend
 	 * Check if given session exists
 	 *
 	 * @return bool
+	 * @throws \Exception on failed connection AFTER reconnect
 	 */
 	public function exists()
 	{
@@ -64,12 +66,14 @@ class Memcached implements Backend
 	}
 
 	/**
-	 * Open session readonly and return it's values
+	 * Open session readonly and return its values
 	 *
+	 * @param bool $try_reconnect
 	 * @return array
-	 * @throws \RuntimeException
+	 * @throws \RuntimeException if session is not found
+	 * @throws \Exception on failed connection AFTER reconnect
 	 */
-	public function open()
+	public function open(bool $try_reconnect=true)
 	{
 		if (session_status() !== PHP_SESSION_ACTIVE)
 		{
@@ -78,7 +82,8 @@ class Memcached implements Backend
 		$_SESSION = [];	// session_decode does NOT clear it
 
 		$key = $this->key();
-		foreach(self::$memcached as $memcached)
+		$exceptions = [];
+		foreach(self::$memcached as $host_port => $memcached)
 		{
 			try {
 				$data = $memcached->get($key);
@@ -86,9 +91,23 @@ class Memcached implements Backend
 				if ($data !== null) break;
 			}
 			catch (\Exception $e) {
-				error_log(__METHOD__."('$key') ".$e->getMessage());
+				$exceptions[$host_port] = $e;
+				error_log(__METHOD__."('$key', $try_reconnect) ".$e->getMessage());
 				continue;
 			}
+		}
+		// if all memcached gave an exception (not finding the session/key does NOT!)
+		if (isset($e) && count($exceptions) === count(self::$memcached))
+		{
+			if ($try_reconnect)
+			{
+				error_log(__METHOD__."('$key', $try_reconnect) trying to reconnect now");
+				self::$memcached = null;
+				self::__construct($this->id, self::$save_path);
+				return $this->open(false);
+			}
+			// throw our original (connection-failed) exception
+			throw $e;
 		}
 		if (!$data || !session_decode($data))
 		{

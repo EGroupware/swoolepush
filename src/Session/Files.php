@@ -43,12 +43,14 @@ class Files implements Backend
 	}
 
 	/**
-	 * Open session readonly and return it's values
+	 * Open session readonly and return its values
 	 *
+	 * @param bool $try_reconnect
 	 * @return array
-	 * @throws \RuntimeException
+	 * @throws \RuntimeException if session is not found
+	 * @throws \Exception on failed connection AFTER reconnect
 	 */
-	public function open()
+	public function open(bool $try_reconnect=false)
 	{
 		if (session_status() !== PHP_SESSION_ACTIVE)
 		{
