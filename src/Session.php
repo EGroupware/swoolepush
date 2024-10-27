@@ -5,7 +5,7 @@
  * @link https://www.egroupware.org
  * @author Ralf Becker <rb-At-egroupware.org>
  * @package swoolpush
- * @copyright (c) 2019 by Ralf Becker <rb-At-egroupware.org>
+ * @copyright (c) 2019-24 by Ralf Becker <rb-At-egroupware.org>
  * @license http://opensource.org/licenses/gpl-license.php GPL - GNU General Public License
  */
 
@@ -17,6 +17,11 @@ namespace EGroupware\SwoolePush;
 class Session
 {
 	protected $id;
+
+	/**
+	 * @var Session\Files|Session\Memcached
+	 */
+	protected $backend;
 
 	/**
 	 * Constructor

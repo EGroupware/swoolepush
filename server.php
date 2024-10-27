@@ -16,7 +16,7 @@
  * @link https://www.egroupware.org
  * @author Ralf Becker <rb-At-egroupware.org>
  * @package swoolepush
- * @copyright (c) 2019 by Ralf Becker <rb-At-egroupware.org>
+ * @copyright (c) 2019-24 by Ralf Becker <rb-At-egroupware.org>
  * @license http://opensource.org/licenses/gpl-license.php GPL - GNU General Public License
  */
 
@@ -39,21 +39,14 @@ if (session_status() !== PHP_SESSION_ACTIVE)
 require __DIR__.'/vendor/autoload.php';
 
 // allow to set a higher number of push users
-if (($max_users = (int)($_SERVER['EGW_MAX_PUSH_USERS'] ?: 1024)) < 1024)
+if (($max_users = (int)($_SERVER['EGW_MAX_PUSH_USERS'] ?? 1024)) < 1024)
 {
     $max_users = 1024;
 }
 $max_users_used = 0;
 
-$table = new Swoole\Table($max_users);
-$table->column('session', Swoole\Table::TYPE_STRING, 40);
-$table->column('user', Swoole\Table::TYPE_STRING, 40);
-$table->column('instance', Swoole\Table::TYPE_STRING, 40);
-$table->column('account_id', Swoole\Table::TYPE_INT);
-$table->create();
-
-$server = new Swoole\Websocket\Server("0.0.0.0", 9501);
-$server->table = $table;
+$server = new EGroupware\SwoolePush\PushServer("0.0.0.0", 9501, $max_users);
+$table = $server->table;
 
 // read Bearer Token from Backend class
 $bearer_token = EGroupware\SwoolePush\Credentials::getBearerToken();

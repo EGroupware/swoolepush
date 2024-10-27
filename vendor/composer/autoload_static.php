@@ -9,15 +9,25 @@ class ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0
     public static $prefixLengthsPsr4 = array (
         'E' => 
         array (
+            'EasySwoole\\Utility\\' => 19,
             'EasySwoole\\Spl\\Test\\' => 20,
             'EasySwoole\\Spl\\' => 15,
+            'EasySwoole\\Pool\\Tests\\' => 22,
+            'EasySwoole\\Pool\\' => 16,
             'EasySwoole\\Memcache\\Tests\\' => 26,
             'EasySwoole\\Memcache\\' => 20,
+            'EasySwoole\\MemcachePool\\' => 24,
+            'EasySwoole\\Component\\Tests\\' => 27,
+            'EasySwoole\\Component\\' => 21,
             'EGroupware\\SwoolePush\\' => 22,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'EasySwoole\\Utility\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/easyswoole/utility/src',
+        ),
         'EasySwoole\\Spl\\Test\\' => 
         array (
             0 => __DIR__ . '/..' . '/easyswoole/spl/test',
@@ -25,6 +35,14 @@ class ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0
         'EasySwoole\\Spl\\' => 
         array (
             0 => __DIR__ . '/..' . '/easyswoole/spl/src',
+        ),
+        'EasySwoole\\Pool\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/easyswoole/pool/tests',
+        ),
+        'EasySwoole\\Pool\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/easyswoole/pool/src',
         ),
         'EasySwoole\\Memcache\\Tests\\' => 
         array (
@@ -34,13 +52,36 @@ class ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0
         array (
             0 => __DIR__ . '/..' . '/easyswoole/memcache/src',
         ),
+        'EasySwoole\\MemcachePool\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/easyswoole/memcache-pool/src',
+        ),
+        'EasySwoole\\Component\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/easyswoole/component/Tests',
+        ),
+        'EasySwoole\\Component\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/easyswoole/component/src',
+        ),
         'EGroupware\\SwoolePush\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'H' => 
+        array (
+            'Horde_Mime' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/mime/lib',
+            ),
+        ),
+    );
+
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Horde_Array' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/Array.php',
         'Horde_Array_Sort_Helper' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/Array/Sort/Helper.php',
         'Horde_Domhtml' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/Domhtml.php',
@@ -80,45 +121,6 @@ class ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0
         'Horde_Mail_Transport_Smtp' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Smtp.php',
         'Horde_Mail_Transport_Smtphorde' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Smtphorde.php',
         'Horde_Mail_Transport_Smtpmx' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Smtpmx.php',
-        'Horde_Mime' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime.php',
-        'Horde_Mime_ContentParam_Decode' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/ContentParam/Decode.php',
-        'Horde_Mime_Exception' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Exception.php',
-        'Horde_Mime_Filter_Encoding' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Filter/Encoding.php',
-        'Horde_Mime_Headers' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers.php',
-        'Horde_Mime_Headers_Addresses' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Addresses.php',
-        'Horde_Mime_Headers_AddressesMulti' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/AddressesMulti.php',
-        'Horde_Mime_Headers_ContentDescription' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/ContentDescription.php',
-        'Horde_Mime_Headers_ContentId' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/ContentId.php',
-        'Horde_Mime_Headers_ContentLanguage' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/ContentLanguage.php',
-        'Horde_Mime_Headers_ContentParam' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/ContentParam.php',
-        'Horde_Mime_Headers_ContentParam_ContentDisposition' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/ContentParam/ContentDisposition.php',
-        'Horde_Mime_Headers_ContentParam_ContentType' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/ContentParam/ContentType.php',
-        'Horde_Mime_Headers_ContentTransferEncoding' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/ContentTransferEncoding.php',
-        'Horde_Mime_Headers_Date' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Date.php',
-        'Horde_Mime_Headers_Deprecated' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Deprecated.php',
-        'Horde_Mime_Headers_Element' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Element.php',
-        'Horde_Mime_Headers_Element_Address' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Element/Address.php',
-        'Horde_Mime_Headers_Element_Multiple' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Element/Multiple.php',
-        'Horde_Mime_Headers_Element_Single' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Element/Single.php',
-        'Horde_Mime_Headers_Extension_Mime' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Extension/Mime.php',
-        'Horde_Mime_Headers_Identification' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Identification.php',
-        'Horde_Mime_Headers_MessageId' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/MessageId.php',
-        'Horde_Mime_Headers_Mime' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Mime.php',
-        'Horde_Mime_Headers_MimeVersion' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/MimeVersion.php',
-        'Horde_Mime_Headers_Received' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Received.php',
-        'Horde_Mime_Headers_Subject' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/Subject.php',
-        'Horde_Mime_Headers_UserAgent' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Headers/UserAgent.php',
-        'Horde_Mime_Id' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Id.php',
-        'Horde_Mime_Magic' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Magic.php',
-        'Horde_Mime_Mail' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Mail.php',
-        'Horde_Mime_Mdn' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Mdn.php',
-        'Horde_Mime_Part' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Part.php',
-        'Horde_Mime_Part_Iterator' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Part/Iterator.php',
-        'Horde_Mime_Part_Upgrade_V1' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Part/Upgrade/V1.php',
-        'Horde_Mime_QuotedPrintable' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/QuotedPrintable.php',
-        'Horde_Mime_Related' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Related.php',
-        'Horde_Mime_Translation' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Translation.php',
-        'Horde_Mime_Uudecode' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mime/Horde/Mime/Uudecode.php',
         'Horde_Stream' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream/Horde/Stream.php',
         'Horde_Stream_Exception' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream/Horde/Stream/Exception.php',
         'Horde_Stream_Existing' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream/Horde/Stream/Existing.php',
@@ -170,6 +172,7 @@ class ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0::$prefixesPsr0;
             $loader->classMap = ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0::$classMap;
 
         }, null, ClassLoader::class);

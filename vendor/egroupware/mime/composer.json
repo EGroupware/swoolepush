@@ -1,0 +1,50 @@
+{
+    "name": "egroupware/mime",
+    "description": "MIME library",
+    "type": "library",
+    "homepage": "https://www.horde.org/libraries/Horde_Mime",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.13.1",
+    "time": "2018-01-14",
+    "require": {
+        "php": "^7.1 || ^8",
+        "pear-pear.horde.org/horde_exception": "^2",
+        "pear-pear.horde.org/horde_listheaders": "^1.2",
+        "pear-pear.horde.org/horde_mail": "^2.5",
+        "pear-pear.horde.org/horde_stream": "^1.3",
+        "pear-pear.horde.org/horde_stream_filter": "^2",
+        "pear-pear.horde.org/horde_support": "^2.1",
+        "pear-pear.horde.org/horde_text_flowed": "^2",
+        "pear-pear.horde.org/horde_translation": "^2.2",
+        "pear-pear.horde.org/horde_util": "^2"
+    },
+    "suggest": {
+        "pear-pear.horde.org/horde_nls": "^2",
+        "pear-pear.horde.org/horde_test": "^2.1",
+        "pear-pear.horde.org/horde_text_filter": "^2",
+        "pear-pear.php.net/net_dns2": "*",
+        "pear-pecl.php.net/idn": "*",
+        "pear-pecl.php.net/intl": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_mime": "2.*",
+        "pear-horde/horde_mime": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Mime": "lib/"
+        }
+    }
+}
