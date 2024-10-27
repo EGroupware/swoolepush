@@ -81,7 +81,7 @@ class Memcache
     {
         if ($this->connect()) {
             $this->client->send($package->__toString());
-            $binaryPackage = $this->client->recv($timeout);
+            $binaryPackage = $this->client->recv($timeout ?? 1);
             if ($binaryPackage && $binaryPackage !== '') {
 
                 $resPack = new Package;
@@ -420,7 +420,7 @@ class Memcache
     public function get($key, $timeout = null)
     {
         $reqPack = new Package(['opcode' => Opcode::OP_GET, 'key' => $key]);
-        $resPack = $this->sendCommand($reqPack, $timeout);
+        $resPack = $this->sendCommand($reqPack, $timeout ?? 1);
 
         if($resPack->getStatus() === Status::STAT_KEY_NOTFOUND){
             return null;
@@ -468,7 +468,7 @@ class Memcache
             $this->client->send($reqPack->__toString());
             while (true) {
 
-                $binaryPackage = $this->client->recv($timeout);
+                $binaryPackage = $this->client->recv($timeout ?? 1);
                 if ($binaryPackage) {
                     $resPack = new Package;
                     $resPack->unpack($binaryPackage);
