@@ -13,6 +13,7 @@ namespace EGroupware\SwoolePush\Session;
 
 use EasySwoole\Memcache\Config;
 use EasySwoole\MemcachePool\MemcachePool;
+use EasySwoole\Memcache\Memcache;
 
 /**
  * Readonly non-blocking sessions for Swoole
