@@ -4,9 +4,7 @@ namespace EasySwoole\Memcache;
 
 use EasySwoole\Memcache\Exception\ConnectException;
 use EasySwoole\Memcache\Exception\MemcacheException;
-use Exception;
 use Swoole\Coroutine\Client as CoroutineClient;
-use Throwable;
 
 /**
  * 协程Memcache客户端
@@ -83,7 +81,7 @@ class Memcache
     {
         if ($this->connect()) {
             $this->client->send($package->__toString());
-            $binaryPackage = $this->client->recv($timeout);
+            $binaryPackage = $this->client->recv($timeout ?? 1);
             if ($binaryPackage && $binaryPackage !== '') {
 
                 $resPack = new Package;
@@ -290,27 +288,104 @@ class Memcache
     }
 
     /**
-     * 获取KEY
-     * @param $key
+     * 存储多个元素
+     *
+     * @param array $items
+     * @param null $expiration
      * @param null $timeout
-     * @return bool|float|int|mixed|string
+     * @return array
      * @throws ConnectException
      * @throws MemcacheException
+     * CreateTime: 2021/3/14 9:38 下午
      */
-    public function get($key, $timeout = null)
+    public function setMulti(array $items, $expiration = null, $timeout = null)
     {
-        $reqPack = new Package(['opcode' => Opcode::OP_GET, 'key' => $key]);
-        $resPack = $this->sendCommand($reqPack, $timeout);
-
-        if($resPack->getStatus() === Status::STAT_KEY_NOTFOUND){
-            return null;
+        $result = [];
+        foreach ($items as $key => $value) {
+            $result[$key] = $this->set($key, $value, $expiration, $timeout);
         }
+        return $result;
+    }
 
-        $this->checkStatus($resPack);
+    /**
+     * 检索多个元素
+     *
+     * @param $keys
+     * @param null $timeout
+     * @return array
+     * @throws ConnectException
+     * @throws MemcacheException
+     * CreateTime: 2021/3/14 9:26 下午
+     */
+    public function getMulti(array $keys, bool $isCas = false, $timeout = null)
+    {
+        $result = [];
+        foreach ($keys as $key) {
+            $reqPack = new Package(['opcode' => Opcode::OP_GET_K, 'key' => $key]);
+            $resPack = $this->sendCommand($reqPack, $timeout);
+            if($resPack->getStatus() === Status::STAT_KEY_NOTFOUND){
+                $result[$key] = null;
+                continue;
+            } else {
+                $this->checkStatus($resPack);
+            }
+            $valueType = $resPack->getExtras() & self::FLAG_TYPE_MASK;
+            $value = $this->decodeByValueType($valueType, $resPack->getValue());
+            if ($isCas) {
+                $result[$key] = [
+                    'value' => $value,
+                    'cas' => $resPack->getCas2()
+                ];
+            } else {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
+    }
 
-        $value = $resPack->getValue();
-        $valueType = $resPack->getExtras() & self::FLAG_TYPE_MASK;
+    /**
+     * 检查并设置
+     *
+     * @param float $casToken
+     * @param string $key
+     * @param $value
+     * @param int|null $expiration
+     * @param null $timeout
+     * @return bool
+     * @throws ConnectException
+     * @throws MemcacheException
+     * CreateTime: 2021/3/15 12:49 上午
+     */
+    public function cas(float $casToken, string $key, $value, int $expiration = null, $timeout = null)
+    {
+        list($flag, $value) = $this->processValueFlags(0, $value);
+        $extras = pack('NN', $flag, $expiration);
+        $reqPack = new Package([
+            'opcode' => Opcode::OP_SET
+            , 'key' => $key
+            , 'value' => $value
+            , 'extras' => $extras
+            , 'cas2' => $casToken
+        ]);
+        $resPack = $this->sendCommand($reqPack, $timeout);
+        if (
+            $resPack->getStatus() === Status::STAT_KEY_EXISTS
+            && $resPack->getValue() === 'Data exists for key.'
+        ) {
+            return false;
+        }
+        return $this->checkStatus($resPack);
+    }
 
+    /**
+     * 根据valueType解析value
+     *
+     * @param $valueType
+     * @param $value
+     * CreateTime: 2021/3/14 11:11 下午
+     */
+    private function decodeByValueType($valueType, $value)
+    {
         switch ($valueType) {
             case self::FLAG_TYPE_STRING:
                 $value = strval($value);
@@ -331,8 +406,32 @@ class Memcache
                 $value = igbinary_unserialize($value);
                 break;
         }
-
         return $value;
+    }
+
+    /**
+     * 获取KEY
+     * @param $key
+     * @param null $timeout
+     * @return bool|float|int|mixed|string
+     * @throws ConnectException
+     * @throws MemcacheException
+     */
+    public function get($key, $timeout = null)
+    {
+        $reqPack = new Package(['opcode' => Opcode::OP_GET, 'key' => $key]);
+        $resPack = $this->sendCommand($reqPack, $timeout ?? 1);
+
+        if($resPack->getStatus() === Status::STAT_KEY_NOTFOUND){
+            return null;
+        }
+
+        $this->checkStatus($resPack);
+
+        $value = $resPack->getValue();
+        $valueType = $resPack->getExtras() & self::FLAG_TYPE_MASK;
+
+        return $this->decodeByValueType($valueType, $value);
     }
 
     /**
@@ -369,7 +468,7 @@ class Memcache
             $this->client->send($reqPack->__toString());
             while (true) {
 
-                $binaryPackage = $this->client->recv($timeout);
+                $binaryPackage = $this->client->recv($timeout ?? 1);
                 if ($binaryPackage) {
                     $resPack = new Package;
                     $resPack->unpack($binaryPackage);

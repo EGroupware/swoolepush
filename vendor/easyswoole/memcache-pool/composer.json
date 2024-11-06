@@ -1,0 +1,32 @@
+{
+    "name": "easyswoole/memcache-pool",
+    "type": "library",
+    "description": "coroutine memcache pool",
+    "keywords" : ["swoole", "framework", "async","easyswoole", "memcache-pool", "memcache"],
+    "homepage" : "https://www.easyswoole.com/",
+    "license" : "Apache-2.0",
+    "authors": [
+        {
+            "name": "gaobinzhan",
+            "email": "gaobinzhan@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "EasySwoole\\MemcachePool\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EasySwoole\\MemcachePool\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "easyswoole/memcache": "^1.1",
+        "easyswoole/component": "^2.2",
+        "easyswoole/pool": "^1.0"
+    },
+    "require-dev": {
+        "easyswoole/phpunit": "^1.0"
+    }
+}

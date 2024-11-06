@@ -5,11 +5,15 @@
  * @link https://www.egroupware.org
  * @author Ralf Becker <rb-At-egroupware.org>
  * @package swoolpush
- * @copyright (c) 2019 by Ralf Becker <rb-At-egroupware.org>
+ * @copyright (c) 2019-24 by Ralf Becker <rb-At-egroupware.org>
  * @license http://opensource.org/licenses/gpl-license.php GPL - GNU General Public License
  */
 
 namespace EGroupware\SwoolePush\Session;
+
+use EasySwoole\Memcache\Config;
+use EasySwoole\MemcachePool\MemcachePool;
+use EasySwoole\Memcache\Memcache;
 
 /**
  * Readonly non-blocking sessions for Swoole
@@ -18,7 +22,7 @@ class Memcached implements Backend
 {
 	protected $id;
 	/**
-	 * @var \EasySwoole\Memcache\Memcache[]
+	 * @var Config[]
 	 */
 	protected static $memcached;
 	protected static $save_path;
@@ -39,11 +43,11 @@ class Memcached implements Backend
 			foreach(explode(',', self::$save_path = $path ?? ini_get('session.save_path')) as $host_port)
 			{
 				list ($host, $port) = explode(':', $host_port);
-				$config = new \EasySwoole\Memcache\Config([
+				$config = new Config([
 					'host' => $host,
 					'port' => $port ?? 11211,
 				]);
-				self::$memcached[$host_port] = new \EasySwoole\Memcache\Memcache($config);
+				self::$memcached[$host_port] = MemcachePool::getInstance()->register($config, $host_port);
 			}
 		}
 	}
@@ -86,7 +90,9 @@ class Memcached implements Backend
 		foreach(self::$memcached as $host_port => $memcached)
 		{
 			try {
-				$data = $memcached->get($key);
+				$data = MemcachePool::invoke(static function (Memcache $memcache) use ($key) {
+					return $memcache->get($key);
+				}, $host_port);
 				//var_dump("memcached->get('$key')=", $data);
 				if ($data !== null) break;
 			}

@@ -10,15 +10,10 @@
             "email": "rb@egroupware.org"
         }
     ],
-	"repositories": [
-        {
-            "type": "pear",
-            "url": "https://pear.horde.org"
-		}
-	],
     "require": {
 		"easyswoole/memcache": "^1.0",
-		"pear-pear.horde.org/horde_mime": "^2.11"
+		"egroupware/mime": "^2.13.0",
+		"easyswoole/memcache-pool": "^1.0"
 	},
     "require-dev": {
 		"eaglewu/swoole-ide-helper": "dev-english"
