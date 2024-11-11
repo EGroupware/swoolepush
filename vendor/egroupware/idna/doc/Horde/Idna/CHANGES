@@ -1,0 +1,53 @@
+----------
+v1.1.2-git
+----------
+
+
+------
+v1.1.1
+------
+
+[jan] Add Turkish translation (İTÜ BİDB <sistemdestek@itu.edu.tr>).
+
+
+------
+v1.1.0
+------
+
+[jan] Check for errors when using UTS #46 algorithm.
+
+
+------
+v1.0.4
+------
+
+[jan] Mark PHP 7 as supported.
+
+
+------
+v1.0.3
+------
+
+[jan] Fix issues with certain locales like Turkish.
+
+
+------
+v1.0.2
+------
+
+[mms] Use intl extension, if installed, and fallback to a locally-patched
+      version of the true/php-punycode package.
+
+
+------
+v1.0.1
+------
+
+[jan] Fix install paths (Bug #13785).
+
+
+------
+v1.0.0
+------
+
+[mms] Initial release.

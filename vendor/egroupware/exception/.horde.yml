@@ -1,0 +1,46 @@
+---
+id: Exception
+name: Exception
+full: Exception handler library
+description: >-
+  A library that provides the default exception handlers for the Horde
+  Framework.
+list: dev
+type: library
+homepage: https://www.horde.org/libraries/Horde_Exception
+authors:
+  -
+    name: Jan Schneider
+    user: jan
+    email: jan@horde.org
+    active: true
+    role: lead
+  -
+    name: Chuck Hagenbuch
+    user: chuck
+    email: chuck@horde.org
+    active: false
+    role: lead
+  -
+    name: Michael Slusarz
+    user: slusarz
+    email: slusarz@horde.org
+    active: false
+    role: developer
+version:
+  release: 2.0.9
+  api: 2.0.0
+state:
+  release: stable
+  api: stable
+license:
+  identifier: LGPL-2.1
+  uri: http://www.horde.org/licenses/lgpl21
+dependencies:
+  required:
+    php: ^5.3 || ^7
+    pear:
+      pear.horde.org/Horde_Translation: ^2.2
+  optional:
+    pear:
+      pear.horde.org/Horde_Test: ^2.1

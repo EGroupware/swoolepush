@@ -1,0 +1,298 @@
+----------
+v2.6.5-git
+----------
+
+
+------
+v2.6.4
+------
+
+[jan] Add Turkish translation (İTÜ BİDB <sistemdestek@itu.edu.tr>).
+
+
+------
+v2.6.3
+------
+
+[jan] Mark PHP 7 as supported.
+
+
+------
+v2.6.2
+------
+
+[mms] Fix validating sent messages if the driver supports EAI addresses.
+
+
+------
+v2.6.1
+------
+
+[mjr] Fix sending mail via PHP's mail function (Steffen Lindner
+      <mail@steffen-lindner.de>).
+
+
+------
+v2.6.0
+------
+
+[jan] Fix issues with certain locales like Turkish.
+[mms] Add support for outputting comment information when writing an address.
+
+
+------
+v2.5.1
+------
+
+[mms] IDN support no longer requires intl to be built-in to PHP.
+
+
+------
+v2.5.0
+------
+
+[mms] Added Horde_Mail_Rfc822_List#first() function.
+[mms] Add property to address object to indicate whether it is an EAI address.
+[mms] Transport driver now indicates whether it handles EAI data.
+[mms] Support validation of EAI addresses (RFC 6532).
+[mms] Add Horde_Mail_Mbox_Parse.
+
+
+------
+v2.4.0
+------
+
+[mms] Added the 'noquote' option to Horde_Mail_Rfc822_Object#writeAddress().
+
+
+------
+v2.3.0
+------
+
+[mms] Add Horde_Mail_Transport_Lmtphorde driver.
+
+
+------
+v2.2.0
+------
+
+[mms] Be more lenient in parsing RFC 5322 identification field values.
+[mms] Add Horde_Mail_Rfc822_Identification class.
+
+
+------
+v2.1.6
+------
+
+[mms] Optimizations to address parsing.
+
+
+------
+v2.1.5
+------
+
+
+------
+v2.1.4
+------
+
+[mms] More thorough job trying to parse addresses that contain an @ but no
+      domain information.
+
+
+------
+v2.1.3
+------
+
+[mms] Correctly identify e-mail addresses without domain information when
+      validating.
+
+
+------
+v2.1.2
+------
+
+[mms] Discard personal information when it is identical to e-mail address.
+
+
+------
+v2.1.1
+------
+
+[mms] Workaround broken Net_SMTP handling regarding the end of message data
+      (Bug #12614).
+
+
+------
+v2.1.0
+------
+
+[mms] Added the Horde_Mail_Transport_Smtphorde driver.
+[mms] Added the 'bare_addresses_idn' property to Horde_Mail_Rfc822_List.
+[mms] Added the 'bare_address_idn' property to Horde_Mail_Rfc822_Address.
+
+
+------
+v2.0.6
+------
+
+[mms] Honor 'pipelining' configuration option in SMTP transport driver.
+
+
+------
+v2.0.5
+------
+
+[mms] Correctly encode IDN domains when sending mail (Bug #12116).
+
+
+------
+v2.0.4
+------
+
+[mms] Improve unit tests.
+
+
+------
+v2.0.3
+------
+
+[mms] Fix behavior of 'persist' option in SMTP transport driver.
+
+
+------
+v2.0.2
+------
+
+[mms] Fix default_domain parameter to Horde_Mail_Rfc822 (Bug #11804).
+
+
+------
+v2.0.1
+------
+
+[mms] Ensure bare address is output to SMTP MAIL command.
+
+
+------
+v2.0.0
+------
+
+First stable release for Horde 5.
+
+
+-----------
+v2.0.0beta2
+-----------
+
+[mms] Add Horde_Mail_Rfc822_Address#matchDomain().
+[mms] Add Horde_Mail_Rfc822_Address#matchInsensitive().
+[mms] Fix parsing Return-Path header when using sendmail driver (Bug #11361).
+
+
+-----------
+v2.0.0beta1
+-----------
+
+First beta release for Horde 5.
+
+
+------------
+v2.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+
+
+------
+v1.2.1
+------
+
+
+------
+v1.2.0
+------
+
+[mms] Added Horde_Mail_Rfc822_Address#encoded property.
+[mms] Better support for IDN hosts in non-validate address parsing mode (Bug
+      #11021).
+[mms] Added Horde_Mail_Rfc822#trimAddress().
+[mms] Add optional arguments to the Horde_Mail_Rfc822_Group constructor.
+[mms] Horde_Mail_Rfc822#parseAddressList() now accepts
+      Horde_Mail_Rfc822_Objects within the first argument.
+[mms] The address and group objects now extend the base
+      Horde_Mail_Rfc822_Object class.
+[mms] Add optional arguments to the Horde_Mail_Rfc822_Group constructor.
+[mms] First argument to Horde_Mail_Rfc822#parseAddressList() can now be an
+      array of addresses.
+[mms] Add Horde_Mail_Rfc822#encode().
+[mms] Workaround unexpected return from PHP_EOL in Mail transport drivers.
+
+
+------
+v1.1.0
+------
+
+[mms] Created Horde_Mail_Rfc822_Address and Horde_Mail_Rfc822_Group objects to
+      represent e-mail addresses.
+[mms] Improved parser for e-mail addresses (Request #10949).
+
+
+------
+v1.0.3
+------
+
+[mms] Fix line-endings for transport drivers that send messages using local
+      tools/programs.
+
+
+------
+v1.0.2
+------
+
+[mms] Always use canonical line endings in sendmail driver (Bug #10696).
+
+
+------
+v1.0.1
+------
+
+[mms] Fix parseAddressList() for empty address strings (Bug #10534).
+[mms] Fix SMTP error codes/messages (Bug #10498).
+
+
+------
+v1.0.0
+------
+
+First stable release for Horde 4.
+
+
+---------
+v1.0.0RC2
+---------
+
+Second release candidate for Horde 4.
+
+
+---------
+v1.0.0RC1
+---------
+
+First release candidate for Horde 4.
+[jan] Fix passing arguments to sendmail binary (Gonçalo Queirós, Bug #9693).
+
+
+-----------
+v1.0.0beta1
+-----------
+
+First beta release for Horde 4.
+
+
+------------
+v1.0.0alpha1
+------------
+
+First alpha release for Horde 4.

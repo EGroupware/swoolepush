@@ -6,5 +6,15 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Horde_Translation' => array($vendorDir . '/egroupware/translation/lib'),
+    'Horde_Text_Flowed' => array($vendorDir . '/egroupware/text-flowed/lib'),
+    'Horde_Support' => array($vendorDir . '/egroupware/support/lib'),
+    'Horde_Stream_Wrapper' => array($vendorDir . '/egroupware/stream-wrapper/lib'),
+    'Horde_Stream_Filter' => array($vendorDir . '/egroupware/stream-filter/lib'),
+    'Horde_Stream' => array($vendorDir . '/egroupware/hstream/lib'),
     'Horde_Mime' => array($vendorDir . '/egroupware/mime/lib'),
+    'Horde_Mail' => array($vendorDir . '/egroupware/mail/lib'),
+    'Horde_ListHeaders' => array($vendorDir . '/egroupware/listheaders/lib'),
+    'Horde_Idna' => array($vendorDir . '/egroupware/idna/lib'),
+    'Horde_Exception' => array($vendorDir . '/egroupware/exception/lib'),
 );

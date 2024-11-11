@@ -205,6 +205,7 @@ class ArrayTest extends TestCase {
      * @param SplArray $splArrayObj
      */
     public function testAsort(SplArray $splArrayObj) {
+       $splArrayObj->asort();
         $this->assertEquals(
             [
                 'color' => [
@@ -218,7 +219,7 @@ class ArrayTest extends TestCase {
                     'grape' => 4
                 ]
             ]
-            ,$splArrayObj->asort()->getArrayCopy()
+            ,$splArrayObj->getArrayCopy()
         );
     }
 
@@ -230,6 +231,7 @@ class ArrayTest extends TestCase {
      * @param SplArray $splArrayObj
      */
     public function testKsort(SplArray $splArrayObj) {
+        $splArrayObj->ksort();
         $this->assertEquals(
             [
                 'color' => [
@@ -243,7 +245,7 @@ class ArrayTest extends TestCase {
                     'grape' => 4
                 ]
             ],
-            $splArrayObj->ksort()->getArrayCopy()
+           $splArrayObj->getArrayCopy()
         );
     }
 
@@ -415,5 +417,44 @@ class ArrayTest extends TestCase {
             "<xml><fruit><apple>3</apple><orange>1</orange><grape>4</grape></fruit><color><red>12</red><blue>8</blue><green>6</green></color></xml>\n",
             $splArrayObj->toXML()
         );
+    }
+
+    public function testMulti()
+    {
+        $splArray = new SplArray(
+            [
+                'a'=>[
+                    "sum"=>'a1',
+                    [
+                        "sum"=>'s1',
+                    ],
+                    [
+                        "sum"=>'s2',
+                    ],
+                ],
+                'b'=>'b',
+                'c'=>[
+                    "sum"=>'c1'
+                ],
+            ]
+        );
+
+        $this->assertEquals([
+            null,'s1','s2'
+        ],$splArray->get('a.*.sum'));
+
+        $this->assertEquals([
+            'a1',null,'c1'
+        ],$splArray->get('*.sum'));
+
+        $this->assertEquals([
+            'a1',
+            [
+                "sum"=>'s1',
+            ],
+            [
+                "sum"=>'s2',
+            ],
+        ],$splArray->get('a.*'));
     }
 }

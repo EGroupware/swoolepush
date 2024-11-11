@@ -1,0 +1,47 @@
+---
+id: Support
+name: Support
+full: Supporting library
+description: >-
+  Support library not tied to Horde but used by it.
+list: dev
+type: library
+homepage: https://www.horde.org/libraries/Horde_Support
+authors:
+  -
+    name: Jan Schneider
+    user: jan
+    email: jan@horde.org
+    active: true
+    role: lead
+  -
+    name: Chuck Hagenbuch
+    user: chuck
+    email: chuck@horde.org
+    active: false
+    role: lead
+  -
+    name: Michael Slusarz
+    user: slusarz
+    email: slusarz@horde.org
+    active: false
+    role: developer
+version:
+  release: 2.2.1
+  api: 2.2.0
+state:
+  release: stable
+  api: stable
+license:
+  identifier: BSD-2-Clause
+  uri: http://www.horde.org/licenses/bsd
+dependencies:
+  required:
+    php: ^5.3 || ^7
+    pear:
+      pear.horde.org/Horde_Exception: ^2
+      pear.horde.org/Horde_Stream_Wrapper: ^2
+      pear.horde.org/Horde_Util: ^2
+  optional:
+    pear:
+      pear.horde.org/Horde_Test: ^2.1

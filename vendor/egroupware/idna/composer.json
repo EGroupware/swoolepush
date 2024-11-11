@@ -1,0 +1,33 @@
+{
+    "name": "egroupware/idna",
+    "description": "IDNA normalization library",
+    "type": "library",
+    "homepage": "https://www.horde.org",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.2.0",
+    "time": "2017-11-11",
+    "require": {
+        "php": "^7 || ^8",
+        "pear-pear.horde.org/horde_exception": "^2",
+        "pear-pear.horde.org/horde_util": "^2"
+    },
+    "suggest": {
+        "ext-intl": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_idna": "1.*",
+        "pear-horde/horde_idna": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Idna": "lib/"
+        }
+    }
+}

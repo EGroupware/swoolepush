@@ -1,0 +1,32 @@
+{
+    "name": "egroupware/text-flowed",
+    "description": "Flowed text library",
+    "type": "library",
+    "homepage": "https://www.horde.org/libraries/Horde_Text_Flowed",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.1.0",
+    "time": "2019-12-15",
+    "require": {
+        "php": "^7 || ^8",
+        "pear-pear.horde.org/horde_util": "^2"
+    },
+    "suggest": {
+        "pear-pear.horde.org/horde_test": "^2.1"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_text_flowed": "2.*",
+        "pear-horde/horde_text_flowed": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Text_Flowed": "lib/"
+        }
+    }
+}

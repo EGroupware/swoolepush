@@ -1,0 +1,36 @@
+{
+    "name": "egroupware/stream-filter",
+    "description": "PHP stream filters library",
+    "type": "library",
+    "homepage": "https://www.horde.org/libraries/Horde_Stream_Filter",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.1.0",
+    "time": "2017-11-11",
+    "require": {
+        "php": "^7 || ^8"
+    },
+    "suggest": {
+        "pear-pear.horde.org/horde_test": "^2.1"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_stream_filter": "2.*",
+        "pear-horde/horde_stream_filter": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Stream_Filter": "lib/"
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "name": "egroupware/hstream",
+    "description": "PHP streams library",
+    "type": "library",
+    "homepage": "https://www.horde.org/libraries/Horde_Stream",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.7.0",
+    "time": "2017-11-11",
+    "require": {
+        "php": "^7 || ^8",
+        "pear-pear.horde.org/horde_exception": "^2"
+    },
+    "suggest": {
+        "pear-pear.horde.org/horde_stream_wrapper": "^2.1",
+        "pear-pear.horde.org/horde_test": "^2.1",
+        "pear-pear.horde.org/horde_util": "^2"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_stream": "1.*",
+        "pear-horde/horde_stream": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Stream": "lib/"
+        }
+    }
+}

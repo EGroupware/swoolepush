@@ -1,0 +1,32 @@
+---
+id: Translation
+name: Translation
+full: Translation library
+description: A translation wrappers library.
+list: dev
+type: library
+homepage: https://www.horde.org/libraries/Horde_Translation
+authors:
+  -
+    name: Jan Schneider
+    user: jan
+    email: jan@horde.org
+    active: true
+    role: lead
+version:
+  release: 2.2.3
+  api: 2.2.0
+state:
+  release: stable
+  api: stable
+license:
+  identifier: LGPL-2.1
+  uri: http://www.horde.org/licenses/lgpl21
+dependencies:
+  required:
+    php: ^5.3 || ^7
+  optional:
+    pear:
+      pear.horde.org/Horde_Test: ^2.1
+    ext:
+      gettext: '*'

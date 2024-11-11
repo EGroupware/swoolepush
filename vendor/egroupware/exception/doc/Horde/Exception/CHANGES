@@ -1,0 +1,189 @@
+----------
+v2.0.9-git
+----------
+
+
+------
+v2.0.8
+------
+
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+
+
+------
+v2.0.7
+------
+
+[jan] Mark PHP 7 as supported.
+
+
+------
+v2.0.6
+------
+
+[jan] Updated UK translation.
+
+
+------
+v2.0.5
+------
+
+[jan] Support loading translations from Composer-installed package.
+[jan] Improve PSR-2 compatibility.
+[jan] Add Composer definition.
+
+
+------
+v2.0.4
+------
+
+[jan] Update Ukrainian translation.
+
+
+------
+v2.0.3
+------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v2.0.2
+------
+
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+
+
+------
+v2.0.1
+------
+
+[jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>).
+
+
+------
+v2.0.0
+------
+
+First stable release for Horde 5.
+
+
+-----------
+v2.0.0beta1
+-----------
+
+First beta release for Horde 5.
+
+
+------------
+v2.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[mms] Added log level setting to Horde_Exception.
+[mms] Added $logged property to Horde_Exception class.
+
+
+-------
+v1.0.10
+-------
+
+
+------
+v1.0.9
+------
+
+[jan] Inherit details from wrapped exception.
+
+
+------
+v1.0.8
+------
+
+[jan] Update Croatian translation.
+[jan] Update Estonian translation.
+
+
+------
+v1.0.7
+------
+
+[gwr] Ensure correct message and code type.
+
+
+------
+v1.0.6
+------
+
+[jan] Don't include backtrace in Horde_Exception_Pear messages.
+
+
+------
+v1.0.5
+------
+
+[jan] Update Latvian translation.
+
+
+------
+v1.0.4
+------
+
+[jan] Update Lithuanian translation.
+
+
+------
+v1.0.3
+------
+
+[gwr] Display 'userinfo' when catching PEAR errors.
+
+
+------
+v1.0.2
+------
+
+[jan] Updated Slovak translation.
+
+
+------
+v1.0.1
+------
+
+[jan] Updated Spanish translation.
+
+
+------
+v1.0.0
+------
+
+First stable release for Horde 4.
+
+
+---------
+v1.0.0RC2
+---------
+
+Second release candidate for Horde 4.
+
+
+---------
+v1.0.0RC1
+---------
+
+First release candidate for Horde 4.
+
+
+-----------
+v1.0.0beta1
+-----------
+
+First beta release for Horde 4.
+
+
+------------
+v1.0.0alpha1
+------------
+
+First alpha release for Horde 4.

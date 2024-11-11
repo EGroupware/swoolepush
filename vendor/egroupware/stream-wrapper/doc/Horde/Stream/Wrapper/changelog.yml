@@ -1,0 +1,181 @@
+---
+2.1.5:
+  api: 2.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2018-01-25
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |+
+    
+2.1.4:
+  api: 2.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2018-01-25
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |+
+    [jan] Fix deprecation warnings in PHP 7.2.
+    
+2.1.3:
+  api: 2.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2016-02-02
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    [jan] Mark PHP 7 as supported.
+2.1.2:
+  api: 2.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-02-10
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    [mms] Fix possible infinite loop when reading from a combined stream.
+2.1.1:
+  api: 2.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-01-09
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    [jan] Improve PSR-2 compatibility.
+2.1.0:
+  api: 2.1.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-02-11
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    [mms] Add unit tests.
+    [mms] Add Horde_Stream_Wrapper_Combine::getStream().
+    [mms] Add Horde_Stream_Wrapper_String::getStream().
+    [mms] Fix documentation regarding proper license for this package (BSD).
+2.0.1:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-11-22
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    [jan] Re-packaged 2.0.0 release.
+2.0.0:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-10-30
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First stable release for Horde 5.
+2.0.0beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-07-19
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First beta release for Horde 5.
+2.0.0alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: stable
+  date: 2012-07-06
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First alpha release for Horde 5.
+1.0.1:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-04-10
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    [rla] Add license file.
+1.0.0:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-04-06
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First stable release for Horde 4.
+1.0.0RC2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-29
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    Second release candidate for Horde 4.
+1.0.0RC1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-22
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First release candidate for Horde 4.
+1.0.0beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-16
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First beta release for Horde 4.
+1.0.0alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2011-03-08
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    First alpha release for Horde 4.

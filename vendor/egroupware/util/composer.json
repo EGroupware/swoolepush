@@ -1,0 +1,48 @@
+{
+    "name": "egroupware/util",
+    "description": "Utility library",
+    "type": "library",
+    "homepage": "https://www.horde.org/libraries/Horde_Util",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "developer"
+        }
+    ],
+    "version": "2.7.0",
+    "time": "2017-11-11",
+    "require": {
+        "php": "^7 || ^8",
+        "ext-dom": "*"
+    },
+    "suggest": {
+        "pear-pear.horde.org/horde_imap_client": "^2",
+        "pear-pear.horde.org/horde_test": "^2.1",
+        "ext-ctype": "*",
+        "ext-filter": "*",
+        "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-xml": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_util": "*",
+        "pear-horde/horde_util": "2.*"
+    },
+    "autoload": {
+	"classmap": ["lib/"]
+    }
+}

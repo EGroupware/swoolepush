@@ -1,0 +1,37 @@
+---
+id: Stream
+name: Stream
+full: PHP streams library
+description: >-
+  A library that provide an object-oriented interface to assist in creating and storing PHP stream
+  resources, and to provide utility methods to access and manipulate the stream
+  contents.
+list: dev
+type: library
+homepage: https://www.horde.org/libraries/Horde_Stream
+authors:
+  -
+    name: Michael Slusarz
+    user: slusarz
+    email: slusarz@horde.org
+    active: false
+    role: lead
+version:
+  release: 1.6.4
+  api: 1.6.0
+state:
+  release: stable
+  api: stable
+license:
+  identifier: LGPL-2.1
+  uri: http://www.horde.org/licenses/lgpl21
+dependencies:
+  required:
+    php: ^5.3 || ^7
+    pear:
+      pear.horde.org/Horde_Exception: ^2
+  optional:
+    pear:
+      pear.horde.org/Horde_Stream_Wrapper: ^2.1
+      pear.horde.org/Horde_Test: ^2.1
+      pear.horde.org/Horde_Util: ^2
