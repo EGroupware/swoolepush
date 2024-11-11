@@ -3,7 +3,7 @@
         'name' => 'egroupware/swoolepush',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '1a5530e5780c1c6e24467e017e8742d6e906a312',
+        'reference' => 'fb1c0ed03545b8735e767be92239ea821bbd4a03',
         'type' => 'egroupware-app',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -157,7 +157,7 @@
         'egroupware/swoolepush' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '1a5530e5780c1c6e24467e017e8742d6e906a312',
+            'reference' => 'fb1c0ed03545b8735e767be92239ea821bbd4a03',
             'type' => 'egroupware-app',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
