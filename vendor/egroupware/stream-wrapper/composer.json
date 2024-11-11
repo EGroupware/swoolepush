@@ -1,0 +1,33 @@
+{
+    "name": "egroupware/stream-wrapper",
+    "description": "PHP stream wrappers library",
+    "type": "library",
+    "homepage": "https://www.horde.org/libraries/Horde_Stream_Wrapper",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.2.0",
+    "time": "2018-01-25",
+    "require": {
+        "php": "^7 || ^8"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_stream_wrapper": "2.*",
+        "pear-horde/horde_stream_wrapper": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Stream_Wrapper": "lib/"
+        }
+    }
+}

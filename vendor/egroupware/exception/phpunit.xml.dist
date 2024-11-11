@@ -1,0 +1,13 @@
+<phpunit bootstrap="test/Horde/Exception/bootstrap.php"
+colors="true">
+  <filter>
+    <whitelist>
+      <directory suffix=".php">lib</directory>
+    </whitelist>
+  </filter>
+  <testsuites>
+    <testsuite>
+      <directory>test</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

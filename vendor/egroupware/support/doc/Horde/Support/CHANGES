@@ -1,0 +1,183 @@
+----------
+v2.2.1-git
+----------
+
+
+------
+v2.2.0
+------
+
+[jan] Add Horde_Backtrace#createFromThrowable() to support PHP 7 error objects
+      too.
+
+
+------
+v2.1.5
+------
+
+[jan] Mark PHP 7 as supported.
+
+
+------
+v2.1.4
+------
+
+[jan] Fix Composer file.
+
+
+------
+v2.1.3
+------
+
+[jan] Fix issues with certain locales like Turkish.
+
+
+------
+v2.1.2
+------
+
+[jan] Add Composer definition.
+
+
+------
+v2.1.1
+------
+
+[mms] Horde_Support_Stub now handles array-like accesses.
+
+
+------
+v2.1.0
+------
+
+[mms] Add Horde_Support_CaseInsensitiveArray class.
+[mms] Add missing magic methods to Horde_Support_Stub.
+
+
+------
+v2.0.4
+------
+
+[mms] Simplify Horde_Support_Array iterator.
+
+
+------
+v2.0.3
+------
+
+[mms] Fix detection of sys_getloadavg() on Windows (Bug #11972).
+
+
+------
+v2.0.2
+------
+
+[mms] Better generation of random IDs.
+
+
+------
+v2.0.1
+------
+
+[jan] Support uuid extension from OSSP (remi@famillecollet.com, Request
+      #11653).
+
+
+------
+v2.0.0
+------
+
+First stable release for Horde 5.
+
+
+-----------
+v2.0.0beta2
+-----------
+
+[jan] If creating Horde_Support_Backtrace from an Exception, include any
+      previous exceptions.
+[jan] Make Horde_Support_Backtrace#backtrace a public property.
+
+
+-----------
+v2.0.0beta1
+-----------
+
+First beta release for Horde 5.
+
+
+------------
+v2.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[mms] Add Horde_Support_ObjectStub.
+
+
+------
+v1.0.2
+------
+
+[mms] Fix failing unit tests.
+
+
+------
+v1.0.1
+------
+
+[jan] Fix tests to work with PHPUnit 3.6.
+
+
+------
+v1.0.0
+------
+
+First stable release for Horde 4.
+
+
+---------
+v1.0.0RC2
+---------
+
+Second release candidate for Horde 4.
+
+
+---------
+v1.0.0RC1
+---------
+
+First release candidate for Horde 4.
+
+
+-----------
+v1.0.0beta1
+-----------
+
+First beta release for Horde 4.
+
+
+------------
+v1.0.0alpha1
+------------
+
+First alpha release for Horde 4.
+Add Horde_Support_Randomid.
+Add Portuguese numerizer.
+
+
+------
+v0.1.0
+------
+
+Add Horde_Support_CombineStream.
+Initial horde/support package
+Initial Horde_Support_Array object
+Initial Horde_Support_Backtrace object
+Initial Horde_Support_ConsistentHash object
+Initial Horde_Support_Inflector object
+Initial Horde_Support_Stack object
+Initial Horde_Support_StringStream object
+Initial Horde_Support_Stub object
+Initial Horde_Support_Timer object
+Initial Horde_Support_Uuid object
+Initial Horde_Support_Numerizer objects

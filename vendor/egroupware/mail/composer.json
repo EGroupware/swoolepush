@@ -1,0 +1,41 @@
+{
+    "name": "egroupware/mail",
+    "description": "Mail library",
+    "type": "library",
+    "homepage": "https://www.horde.org/libraries/Horde_Mail",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "2.7.1",
+    "time": "2017-11-11",
+    "require": {
+        "php": "^7.1 || ^8",
+        "pear-pear.horde.org/horde_exception": "^2",
+        "pear-pear.horde.org/horde_idna": "^1",
+        "pear-pear.horde.org/horde_mime": "^2",
+        "pear-pear.horde.org/horde_stream_filter": "^2",
+        "pear-pear.horde.org/horde_translation": "^2.2",
+        "pear-pear.horde.org/horde_util": "^2"
+    },
+    "suggest": {
+        "pear-pear.horde.org/horde_smtp": "^1.7",
+        "pear-pear.horde.org/horde_stream_wrapper": "^2.1",
+        "pear-pear.horde.org/horde_test": "^2.1",
+        "pear-pear.php.net/net_dns2": "*",
+        "pear-pear.php.net/net_smtp": "^1.6"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_mail": "2.*",
+        "pear-horde/horde_mail": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Mail": "lib/"
+        }
+    }
+}

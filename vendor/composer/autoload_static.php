@@ -73,98 +73,62 @@ class ComposerStaticInita1d9162b029fff796c6de39eb3e3c0c0
     public static $prefixesPsr0 = array (
         'H' => 
         array (
+            'Horde_Translation' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/translation/lib',
+            ),
+            'Horde_Text_Flowed' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/text-flowed/lib',
+            ),
+            'Horde_Support' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/support/lib',
+            ),
+            'Horde_Stream_Wrapper' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/stream-wrapper/lib',
+            ),
+            'Horde_Stream_Filter' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/stream-filter/lib',
+            ),
+            'Horde_Stream' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/hstream/lib',
+            ),
             'Horde_Mime' => 
             array (
                 0 => __DIR__ . '/..' . '/egroupware/mime/lib',
+            ),
+            'Horde_Mail' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/mail/lib',
+            ),
+            'Horde_ListHeaders' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/listheaders/lib',
+            ),
+            'Horde_Idna' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/idna/lib',
+            ),
+            'Horde_Exception' => 
+            array (
+                0 => __DIR__ . '/..' . '/egroupware/exception/lib',
             ),
         ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Horde_Array' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/Array.php',
-        'Horde_Array_Sort_Helper' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/Array/Sort/Helper.php',
-        'Horde_Domhtml' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/Domhtml.php',
-        'Horde_Exception' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Exception/Horde/Exception.php',
-        'Horde_Exception_LastError' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Exception/Horde/Exception/LastError.php',
-        'Horde_Exception_NotFound' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Exception/Horde/Exception/NotFound.php',
-        'Horde_Exception_Pear' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Exception/Horde/Exception/Pear.php',
-        'Horde_Exception_PermissionDenied' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Exception/Horde/Exception/PermissionDenied.php',
-        'Horde_Exception_Translation' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Exception/Horde/Exception/Translation.php',
-        'Horde_Exception_Wrapped' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Exception/Horde/Exception/Wrapped.php',
-        'Horde_Idna' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Idna/Horde/Idna.php',
-        'Horde_Idna_Exception' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Idna/Horde/Idna/Exception.php',
-        'Horde_Idna_Punycode' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Idna/Horde/Idna/Punycode.php',
-        'Horde_Idna_Translation' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Idna/Horde/Idna/Translation.php',
-        'Horde_ListHeaders' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_ListHeaders/Horde/ListHeaders.php',
-        'Horde_ListHeaders_Base' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_ListHeaders/Horde/ListHeaders/Base.php',
-        'Horde_ListHeaders_Id' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_ListHeaders/Horde/ListHeaders/Id.php',
-        'Horde_ListHeaders_NoPost' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_ListHeaders/Horde/ListHeaders/NoPost.php',
-        'Horde_ListHeaders_Object' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_ListHeaders/Horde/ListHeaders/Object.php',
-        'Horde_ListHeaders_Translation' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_ListHeaders/Horde/ListHeaders/Translation.php',
-        'Horde_Mail_Exception' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Exception.php',
-        'Horde_Mail_Mbox_Parse' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Mbox/Parse.php',
-        'Horde_Mail_Rfc822' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Rfc822.php',
-        'Horde_Mail_Rfc822_Address' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Rfc822/Address.php',
-        'Horde_Mail_Rfc822_Group' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Rfc822/Group.php',
-        'Horde_Mail_Rfc822_GroupList' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Rfc822/GroupList.php',
-        'Horde_Mail_Rfc822_Identification' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Rfc822/Identification.php',
-        'Horde_Mail_Rfc822_List' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Rfc822/List.php',
-        'Horde_Mail_Rfc822_Object' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Rfc822/Object.php',
-        'Horde_Mail_Translation' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Translation.php',
-        'Horde_Mail_Transport' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport.php',
-        'Horde_Mail_Transport_Lmtphorde' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Lmtphorde.php',
-        'Horde_Mail_Transport_Mail' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Mail.php',
-        'Horde_Mail_Transport_Mock' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Mock.php',
-        'Horde_Mail_Transport_Null' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Null.php',
-        'Horde_Mail_Transport_Sendmail' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Sendmail.php',
-        'Horde_Mail_Transport_Smtp' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Smtp.php',
-        'Horde_Mail_Transport_Smtphorde' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Smtphorde.php',
-        'Horde_Mail_Transport_Smtpmx' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Mail/Horde/Mail/Transport/Smtpmx.php',
-        'Horde_Stream' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream/Horde/Stream.php',
-        'Horde_Stream_Exception' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream/Horde/Stream/Exception.php',
-        'Horde_Stream_Existing' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream/Horde/Stream/Existing.php',
-        'Horde_Stream_Filter_Bin2hex' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream_Filter/Horde/Stream/Filter/Bin2hex.php',
-        'Horde_Stream_Filter_Crc32' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream_Filter/Horde/Stream/Filter/Crc32.php',
-        'Horde_Stream_Filter_Eol' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream_Filter/Horde/Stream/Filter/Eol.php',
-        'Horde_Stream_Filter_Htmlspecialchars' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream_Filter/Horde/Stream/Filter/Htmlspecialchars.php',
-        'Horde_Stream_Filter_Null' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream_Filter/Horde/Stream/Filter/Null.php',
-        'Horde_Stream_String' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream/Horde/Stream/String.php',
-        'Horde_Stream_Temp' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream/Horde/Stream/Temp.php',
-        'Horde_Stream_TempString' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream/Horde/Stream/TempString.php',
-        'Horde_Stream_Wrapper_Combine' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream_Wrapper/Horde/Stream/Wrapper/Combine.php',
-        'Horde_Stream_Wrapper_CombineStream' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream_Wrapper/Horde/Stream/Wrapper/CombineStream.php',
-        'Horde_Stream_Wrapper_String' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream_Wrapper/Horde/Stream/Wrapper/String.php',
-        'Horde_Stream_Wrapper_StringStream' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Stream_Wrapper/Horde/Stream/Wrapper/StringStream.php',
-        'Horde_String' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/String.php',
-        'Horde_String_Transliterate' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/String/Transliterate.php',
-        'Horde_Support_Array' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Array.php',
-        'Horde_Support_Backtrace' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Backtrace.php',
-        'Horde_Support_CaseInsensitiveArray' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/CaseInsensitiveArray.php',
-        'Horde_Support_CombineStream' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/CombineStream.php',
-        'Horde_Support_ConsistentHash' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/ConsistentHash.php',
-        'Horde_Support_Guid' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Guid.php',
-        'Horde_Support_Inflector' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Inflector.php',
-        'Horde_Support_Memory' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Memory.php',
-        'Horde_Support_Numerizer' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Numerizer.php',
-        'Horde_Support_Numerizer_Locale_Base' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Numerizer/Locale/Base.php',
-        'Horde_Support_Numerizer_Locale_De' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Numerizer/Locale/De.php',
-        'Horde_Support_Numerizer_Locale_Pt' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Numerizer/Locale/Pt.php',
-        'Horde_Support_ObjectStub' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/ObjectStub.php',
-        'Horde_Support_Randomid' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Randomid.php',
-        'Horde_Support_Stack' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Stack.php',
-        'Horde_Support_StringStream' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/StringStream.php',
-        'Horde_Support_Stub' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Stub.php',
-        'Horde_Support_Timer' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Timer.php',
-        'Horde_Support_Uuid' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Support/Horde/Support/Uuid.php',
-        'Horde_Text_Flowed' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Text_Flowed/Horde/Text/Flowed.php',
-        'Horde_Translation' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Translation/Horde/Translation.php',
-        'Horde_Translation_Autodetect' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Translation/Horde/Translation/Autodetect.php',
-        'Horde_Translation_Exception' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Translation/Horde/Translation/Exception.php',
-        'Horde_Translation_Handler' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Translation/Horde/Translation/Handler.php',
-        'Horde_Translation_Handler_Gettext' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Translation/Horde/Translation/Handler/Gettext.php',
-        'Horde_Util' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/Util.php',
-        'Horde_Variables' => __DIR__ . '/..' . '/pear-pear.horde.org/Horde_Util/Horde/Variables.php',
+        'Horde_Array' => __DIR__ . '/..' . '/egroupware/util/lib/Horde/Array.php',
+        'Horde_Array_Sort_Helper' => __DIR__ . '/..' . '/egroupware/util/lib/Horde/Array/Sort/Helper.php',
+        'Horde_Domhtml' => __DIR__ . '/..' . '/egroupware/util/lib/Horde/Domhtml.php',
+        'Horde_String' => __DIR__ . '/..' . '/egroupware/util/lib/Horde/String.php',
+        'Horde_String_Transliterate' => __DIR__ . '/..' . '/egroupware/util/lib/Horde/String/Transliterate.php',
+        'Horde_Util' => __DIR__ . '/..' . '/egroupware/util/lib/Horde/Util.php',
+        'Horde_Variables' => __DIR__ . '/..' . '/egroupware/util/lib/Horde/Variables.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

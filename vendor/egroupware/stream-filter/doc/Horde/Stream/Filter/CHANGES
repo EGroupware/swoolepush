@@ -1,0 +1,103 @@
+----------
+v2.0.5-git
+----------
+
+
+------
+v2.0.4
+------
+
+[jan] Mark PHP 7 as supported.
+
+
+------
+v2.0.3
+------
+
+[jan] Add Composer definition.
+
+
+------
+v2.0.2
+------
+
+[mms] Fix EOL filter when multi-character EOL is split between incoming buckets
+      (Bug #12673).
+
+
+------
+v2.0.1
+------
+
+[mms] Use new Horde_Test layout.
+
+
+------
+v2.0.0
+------
+
+First stable release for Horde 5.
+
+
+-----------
+v2.0.0beta2
+-----------
+
+[jan] Add htmlspecialchars() filter.
+
+
+-----------
+v2.0.0beta1
+-----------
+
+First beta release for Horde 5.
+
+
+------------
+v2.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+
+
+------
+v1.1.0
+------
+
+[mms] Add Bin2hex filter.
+
+
+------
+v1.0.0
+------
+
+First stable release for Horde 4.
+[mms] Add CRC32 filter.
+
+
+---------
+v1.0.0RC2
+---------
+
+Second release candidate for Horde 4.
+
+
+---------
+v1.0.0RC1
+---------
+
+First release candidate for Horde 4.
+
+
+-----------
+v1.0.0beta1
+-----------
+
+First beta release for Horde 4.
+
+
+------------
+v1.0.0alpha1
+------------
+
+First alpha release for Horde 4.

@@ -108,7 +108,7 @@ class SplBean implements \JsonSerializable
         return $array;
     }
 
-    final private function arrayToBean(array $data, $autoCreateProperty = false): SplBean
+    private function arrayToBean(array $data, $autoCreateProperty = false): SplBean
     {
 
         $data = $this->dataKeyMap($data);
@@ -190,6 +190,12 @@ class SplBean implements \JsonSerializable
         return $this;
     }
 
+    function merge(array $data)
+    {
+        $this->arrayToBean($data);
+        return $this;
+    }
+
     private function clear()
     {
         $keys = $this->allProperty();
@@ -251,7 +257,7 @@ class SplBean implements \JsonSerializable
      * @param array $array
      * @return array
      */
-    final private function beanKeyMap(array $array): array
+    private function beanKeyMap(array $array): array
     {
         foreach ($this->setKeyMapping() as $dataKey => $beanKey) {
             if (array_key_exists($beanKey, $array)) {
@@ -269,7 +275,7 @@ class SplBean implements \JsonSerializable
      * @param array $array
      * @return array
      */
-    final private function dataKeyMap(array $array): array
+    private function dataKeyMap(array $array): array
     {
         foreach ($this->setKeyMapping() as $dataKey => $beanKey) {
             if (array_key_exists($dataKey, $array)) {

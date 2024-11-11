@@ -1,0 +1,44 @@
+{
+    "name": "egroupware/support",
+    "description": "Supporting library",
+    "type": "library",
+    "homepage": "https://www.horde.org/libraries/Horde_Support",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        },
+        {
+            "name": "Michael Slusarz",
+            "email": "slusarz@horde.org",
+            "role": "developer"
+        }
+    ],
+    "version": "2.3.1",
+    "time": "2017-11-11",
+    "require": {
+        "php": "^7.1 || ^8",
+        "pear-pear.horde.org/horde_exception": "^2",
+        "pear-pear.horde.org/horde_stream_wrapper": "^2",
+        "pear-pear.horde.org/horde_util": "^2"
+    },
+    "suggest": {
+        "pear-pear.horde.org/horde_test": "^2.1"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_support": "2.*",
+        "pear-horde/horde_support": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Support": "lib/"
+        }
+    }
+}

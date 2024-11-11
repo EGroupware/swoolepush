@@ -1,0 +1,36 @@
+---
+id: Stream_Filter
+name: Stream_Filter
+full: PHP stream filters library
+description: A library of various stream filters.
+list: dev
+type: library
+homepage: https://www.horde.org/libraries/Horde_Stream_Filter
+authors:
+  -
+    name: Chuck Hagenbuch
+    user: chuck
+    email: chuck@horde.org
+    active: false
+    role: lead
+  -
+    name: Michael Slusarz
+    user: slusarz
+    email: slusarz@horde.org
+    active: false
+    role: lead
+version:
+  release: 2.0.5
+  api: 1.1.0
+state:
+  release: stable
+  api: stable
+license:
+  identifier: LGPL-2.1
+  uri: http://www.horde.org/licenses/lgpl21
+dependencies:
+  required:
+    php: ^5.3 || ^7
+  optional:
+    pear:
+      pear.horde.org/Horde_Test: ^2.1

@@ -1,0 +1,33 @@
+---
+id: Stream_Wrapper
+name: Stream_Wrapper
+full: PHP stream wrappers library
+description: A library of stream wrappers.
+list: dev
+type: library
+homepage: https://www.horde.org/libraries/Horde_Stream_Wrapper
+authors:
+  -
+    name: Chuck Hagenbuch
+    user: chuck
+    email: chuck@horde.org
+    active: false
+    role: lead
+  -
+    name: Michael Slusarz
+    user: slusarz
+    email: slusarz@horde.org
+    active: false
+    role: lead
+version:
+  release: 2.1.5
+  api: 2.1.0
+state:
+  release: stable
+  api: stable
+license:
+  identifier: BSD-2-Clause
+  uri: http://www.horde.org/licenses/bsd
+dependencies:
+  required:
+    php: ^5.3 || ^7

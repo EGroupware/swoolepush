@@ -1,0 +1,108 @@
+----------
+v1.6.4-git
+----------
+
+
+------
+v1.6.3
+------
+
+[jan] Mark PHP 7 as supported.
+
+
+------
+v1.6.2
+------
+
+[jan] Throw InvalidArgumentException if passing incorrect arguments to
+      constructors.
+
+
+------
+v1.6.1
+------
+
+[mms] Fix packaging error.
+
+
+------
+v1.6.0
+------
+
+[mms] Add the Horde_Stream_TempString class.
+[mms] Add the Horde_Stream_String class.
+
+
+------
+v1.5.0
+------
+
+[mms] Add 'all' parameter to Horde_Stream#getToChar().
+
+
+------
+v1.4.0
+------
+
+[mms] Add Horde_Stream#substring().
+[mms] Fix getString() in certain use cases.
+[mms] Horde_Stream#getToChar() now supports multiple characters in search
+      string.
+[mms] Horde_Stream#search() now supports multiple characters in search string.
+[mms] Add ability to get UTF-8 character length of stream from
+      Horde_Stream#length().
+[mms] Add length argument to peek().
+[mms] Add Horde_Stream#close().
+[mms] Add support for parsing UTF-8 characters in stream via
+      Horde_Stream#getChar().
+[mms] Add Horde_Stream#eof().
+[mms] Add Horde_Stream#end().
+[mms] Add Horde_Stream#seek().
+[mms] Add Horde_Stream#rewind().
+[mms] Add Horde_Stream#pos().
+[mms] Add Horde_Stream#__destruct().
+
+
+------
+v1.3.0
+------
+
+[mms] Add Horde_Stream#getEOL().
+
+
+------
+v1.2.0
+------
+
+[mms] Add Horde_Stream_Existing class.
+
+
+------
+v1.1.1
+------
+
+[mms] Only specify maxmemory argument when creating temp stream if it was
+      given.
+
+
+------
+v1.1.0
+------
+
+[mms] Allow Horde_Stream object to be cloned.
+[mms] Allow Horde_Stream object to be serialized (Bug #11598).
+[mms] Add Horde_Stream#__toString().
+
+
+------
+v1.0.0
+------
+
+First stable release for Horde 5.
+
+
+-----------
+v1.0.0beta1
+-----------
+
+First beta release for Horde 5.
