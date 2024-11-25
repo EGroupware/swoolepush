@@ -37,7 +37,19 @@ class Backend extends Credentials implements Api\Json\PushBackend
 	 */
 	function __construct()
 	{
-		$this->url = Api\Framework::getUrl(Api\Framework::link('/push'));
+		if (!empty($_SERVER['EGW_PUSH_SERVER']))
+		{
+			$this->url = $_SERVER['EGW_PUSH_SERVER'];
+			if (!str_starts_with($this->url, 'http'))
+			{
+				$this->url = 'https://'.$this->url;
+			}
+			$this->url = rtrim($this->url, '/').parse_url(Api\Framework::link('/push'), PHP_URL_PATH);
+		}
+		else
+		{
+			$this->url = Api\Framework::getUrl(Api\Framework::link('/push'));
+		}
 		// stopping cli with default URL "/egroupware" and endless Travis logs because of http:///egroupware/ url not reachable
 		if (substr($this->url, 0, 8) === 'http:///' ||
 			($n=self::failedAttempts()) > self::MAX_FAILED_ATTEMPTS)
