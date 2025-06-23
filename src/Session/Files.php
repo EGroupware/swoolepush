@@ -54,7 +54,10 @@ class Files implements Backend
 	{
 		if (session_status() !== PHP_SESSION_ACTIVE)
 		{
-			session_start();
+			if (!session_start())
+			{
+				throw new \Exception('session_start() failed');
+			}
 		}
 		$_SESSION = [];	// session_decode does NOT clear it
 

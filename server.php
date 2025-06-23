@@ -135,7 +135,7 @@ $server->on('request', function (Swoole\Http\Request $request, Swoole\Http\Respo
 			if (empty($token))
 			{
 				$data = json_decode($msg, true);
-				$token = $data['token'];
+				$token = $data['token'] ?? null;
 				unset($data['token']);
 				$msg = json_encode($data);
 			}

@@ -29,7 +29,7 @@ interface Backend
 	 * Check if given session exists
 	 *
 	 * @return bool
-	 * @throws \Exception on failed connection AFTER reconnect
+	 * @throws \Exception on failed connection AFTER reconnect, or session_start() returned false
 	 */
 	public function exists();
 
@@ -39,7 +39,7 @@ interface Backend
 	 * @param bool $try_reconnect
 	 * @return array
 	 * @throws \RuntimeException if session is not found
-	 * @throws \Exception on failed connection AFTER reconnect
+	 * @throws \Exception on failed connection AFTER reconnect, or session_start() returned false
 	 */
 	public function open(bool $try_reconnect=true);
 }

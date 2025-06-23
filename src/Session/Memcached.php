@@ -34,11 +34,11 @@ class Memcached implements Backend
 	 * @param string $path =null "server1[:11211][,server2[:11211]]"
 	 * @throws \RuntimeException
 	 */
-	function __construct($id, $path=null)
+	function __construct($id, $path=null, $reconnect=false)
 	{
 		$this->id = $id;
 
-		if (!isset(self::$memcached))
+		if (!isset(self::$memcached) || $reconnect)
 		{
 			foreach(explode(',', self::$save_path = $path ?? ini_get('session.save_path')) as $host_port)
 			{
@@ -75,13 +75,16 @@ class Memcached implements Backend
 	 * @param bool $try_reconnect
 	 * @return array
 	 * @throws \RuntimeException if session is not found
-	 * @throws \Exception on failed connection AFTER reconnect
+	 * @throws \Exception on failed connection AFTER reconnect, or session_open() returns false
 	 */
 	public function open(bool $try_reconnect=true)
 	{
 		if (session_status() !== PHP_SESSION_ACTIVE)
 		{
-			session_start();
+			if (!session_start())
+			{
+				throw new \Exception('session_start() failed');
+			}
 		}
 		$_SESSION = [];	// session_decode does NOT clear it
 
@@ -109,7 +112,7 @@ class Memcached implements Backend
 			{
 				error_log(__METHOD__."('$key', $try_reconnect) trying to reconnect now");
 				self::$memcached = null;
-				self::__construct($this->id, self::$save_path);
+				self::__construct($this->id, self::$save_path, true);
 				return $this->open(false);
 			}
 			// throw our original (connection-failed) exception
