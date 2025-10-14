@@ -81,9 +81,10 @@ try {
 
 	if (PHP_SAPI !== 'cli')
 	{
-		(new Backend())->addGeneric(Push::SESSION, 'message', [
-			'message' => $message,
-			'type'    => 'info',
+		// success message needs to be delayed (3rd param) as push might be quicker than the error-message in the regular response
+		(new Backend())->addGeneric(Push::SESSION, 'apply', [
+			'func' => 'app.admin.pushTestMessage',
+			'parms' => [$message, 'info', 200],
 		]);
 	}
 }
