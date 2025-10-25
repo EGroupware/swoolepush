@@ -78,7 +78,7 @@ class Hooks
 	 * @param bool|null $disable true: disable, false: re-enable, null (default) don't change just return current setting
 	 * @return bool true: push currently disabled, false: push currently enabled
 	 */
-	public static function pushDisabled(bool $disable=null)
+	public static function pushDisabled(?bool $disable=null)
 	{
 		if (isset($disable))
 		{
