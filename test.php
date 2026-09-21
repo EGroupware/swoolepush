@@ -51,7 +51,10 @@ if (PHP_SAPI !== 'cli')
 	Api\Framework::set_extra('app', 'call', [
 		'app' => 'admin',
 		'method' => 'pushTestStart',
-		'args' => [$push_test_token, 2000, lang('Push server is NOT working')],
+		// 5000ms, not 2000: found live (api/push_test.php's own docs) that a long-poll's ~1s
+		// tick plus network/PHP overhead can occasionally land just past a tight 2s window on a
+		// cold start, showing a confusing "failed, then succeeded a moment later" pair of toasts.
+		'args' => [$push_test_token, 5000, lang('Push server is NOT working')],
 	]);
 
 	echo $egw->framework->header();
@@ -69,10 +72,13 @@ else
 function check_push($ignore_cache=false)
 {
 	global $success_start, $failure_start, $end;
+	// onlyFallback()=true is NOT a failure - it means push IS working, just via the built-in
+	// SSE/long-poll fallback instead of native Swoole Push; same fix as api/push_test.php's
+	// own "Push: using the fallback..." line, found live 2026-09-21.
 	$only_fallback = Push::onlyFallback($ignore_cache);
-	$result = ($only_fallback ?
-			$failure_start.lang('Using fallback via regular JSON requests') :
-			$success_start.lang('Using native Swoole Push')).$end;
+	$result = $success_start.($only_fallback ?
+			lang('Using fallback via regular JSON requests') :
+			lang('Using native Swoole Push')).$end;
 	echo "Push::onlyFallback()=".json_encode($only_fallback).' --> '.$result."\n\n";
 	echo "SwoolPush\Backend::failedAttempts()=".Backend::failedAttempts().", SwoolePush\Backend::backoffTime=".Backend::backoffTime();
 }
@@ -99,17 +105,29 @@ try {
 	echo json_encode(array_map(function($account_id) {
 			return Api\Accounts::id2name($account_id);
 		},(new Backend())->online()))."\n\n";
-
-	if (PHP_SAPI !== 'cli')
-	{
-		(new Backend())->addGeneric(Push::SESSION, 'apply', [
-			'func' => 'app.admin.pushTestMessage',
-			'parms' => [$push_test_token, lang('Push server is working')],
-		]);
-	}
 }
 catch (Exception $e) {
 	echo $failure_start.$e->getMessage().$end."\n";
+}
+
+if (PHP_SAPI !== 'cli')
+{
+	// Via the generic Push facade (Api\Json\Push::checkSetBackend()), NOT a direct
+	// `new Backend()` - so this correctly exercises the same real-backend-first,
+	// fall-back-to-notifications_push behaviour every real notification already gets.
+	// Found live (Ralf, 2026-09-21): a direct `(new Backend())->addGeneric(...)` here
+	// meant Test Push could never demonstrate the fallback actually working, since
+	// Backend's own constructor throws (once its own accumulated-failure backoff is
+	// exhausted - see check_push()'s own diagnostic above) BEFORE addGeneric()'s own
+	// internal per-call HTTP-failure fallback ever gets a chance to run.
+	// checkSetBackend() catches that same construction failure per-class and falls
+	// through to notifications_push, exactly like any other push message in EGroupware.
+	try {
+		(new Push(Push::SESSION))->apply('app.admin.pushTestMessage', [$push_test_token, lang('Push server is working')]);
+	}
+	catch (Exception $e) {
+		echo $failure_start.$e->getMessage().$end."\n";
+	}
 }
 
 check_push(true);

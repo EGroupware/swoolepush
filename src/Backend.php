@@ -55,7 +55,7 @@ class Backend extends Credentials implements Api\Json\PushBackend
 			($n=self::failedAttempts()) > self::MAX_FAILED_ATTEMPTS)
 		{
 			throw new Api\Exception\NotFound("Stopped trying to connect to push server $this->url".
-				(isset($n) ? "after $n failed attempts!" : "!"));
+				(isset($n) ? " after $n failed attempts!" : "!"));
 		}
 	}
 
