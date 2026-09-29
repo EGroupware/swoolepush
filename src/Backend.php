@@ -237,11 +237,20 @@ class Backend extends Credentials implements Api\Json\PushBackend
 		$request .= "\r\n";
 		//if ($method != 'GET') error_log($request.$body);
 
-		if (fwrite($sock, $request.$body) === false)
+		// fwrite() is NOT guaranteed to write the whole buffer in one call (PHP manual: "may write
+		// fewer bytes than requested"), it only returns false on a hard error - a large body (eg. a
+		// push message carrying a REST-uploaded mail attachment) can silently truncate here,
+		// sending a Content-Length that doesn't match what's actually on the wire. Loop until
+		// everything is written, or we cannot make further progress.
+		$data = $request.$body;
+		for ($written = 0, $len = strlen($data); $written < $len; $written += $n)
 		{
-			error_log(__METHOD__."('$url', ...) error sending request!");
-			fclose($sock);
-			return false;
+			if (($n = fwrite($sock, substr($data, $written))) === false || $n === 0)
+			{
+				error_log(__METHOD__."('$url', ...) error sending request (wrote $written of $len bytes)!");
+				fclose($sock);
+				return false;
+			}
 		}
 		return $sock;
 	}
