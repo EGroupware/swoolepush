@@ -68,7 +68,9 @@ $server->on('open', function (Swoole\Websocket\Server $server, Swoole\Http\Reque
 	    !(new EGroupware\SwoolePush\Session($sessionid))->exists())
 	{
 		error_log("server: handshake success with fd{$request->fd}, FAILED with unknown sessionid=$sessionid");
-		$server->close($request->fd);
+		// proper close frame with a private-use code (4000-4999), so the client knows its session is gone and stops
+		// reconnecting, instead of an abrupt close it can only treat as a connection problem (reconnect with back-off)
+		$server->disconnect($request->fd, 4401, 'unknown session');
 	}
 	else
 	{
